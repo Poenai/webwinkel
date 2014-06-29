@@ -1,0 +1,70 @@
+      a#open-cart {
+		color:#FF8C00;
+      }
+
+      .navbar {
+		padding-top: 20px;
+      }
+      
+      
+      .box-cart {
+		margin:20px 20px 0px 20px; 
+       }
+			
+			
+       .minicart {
+    		width: 320px;
+	}
+
+
+
+
+
+	.total-box {
+  		padding: 7px 2px;
+  		margin: 0 0 0px;
+		  height: 18px;
+  		list-style: none;
+  		background-color: #fbfbfb;
+  		background-image: -moz-linear-gradient(top, #ffffff, #f5f5f5);
+  		background-image: -ms-linear-gradient(top, #ffffff, #f5f5f5);
+  		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f5f5f5));
+  		background-image: -webkit-linear-gradient(top, #ffffff, #f5f5f5);
+  		background-image: -o-linear-gradient(top, #ffffff, #f5f5f5);
+  		background-image: linear-gradient(top, #ffffff, #f5f5f5);
+  		background-repeat: repeat-x;
+  		border: 1px solid #ddd;
+  		-webkit-border-radius: 3px;
+  		-moz-border-radius: 3px;
+  		border-radius: 3px;
+  		filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=0);
+  		-webkit-box-shadow: inset 0 1px 0 #ffffff;
+  		-moz-box-shadow: inset 0 1px 0 #ffffff;
+  		box-shadow: inset 0 1px 0 #ffffff;
+	}
+
+	.total-box-label {
+		font-size: 14px;
+	}
+
+	.total-box-price {
+		color: #FF8C00;
+		font-style: bold;
+	}
+
+
+
+	#shoppingcart {
+
+		-webkit-box-sizing: border-box; 
+		-moz-box-sizing: border-box; 
+		box-sizing: border-box; 
+
+	}
+
+
+
+	.table-nr tbody tr:hover td,
+		.table tbody tr:hover th {
+ 		 background-color: transparent;
+	}
