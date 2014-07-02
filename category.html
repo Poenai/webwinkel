@@ -272,11 +272,7 @@
     //haal xml bestand met producten op en zorg dat ze getoond worden
     $.get("xml/producten.xml",function(xml)
             {
-                console.log(Catalog);
-
                 Catalog = $.xml2json(xml).product;
-
-                console.log(Catalog);
 
                 var category = getCategory(Catalog, page, 4, 1, 500);
 
