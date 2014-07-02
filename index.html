@@ -13,6 +13,7 @@
 <!-- cart functions -->
 <script type="text/javascript" src="js/jquery/jquery-cookie.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.flexslider.js"></script>
+    <script src="http://jquery-xml2json-plugin.googlecode.com/svn/trunk/jquery.xml2json.js" type="text/javascript" language="javascript"></script>
 <script type="text/javascript" src="js/cart/shoppingcart-1-1.js"></script>
 <script type="text/javascript" src="js/cart/querystring.js"></script>
 <script type="text/javascript" src="js/cart/contact.js"></script>
@@ -22,7 +23,6 @@
 
 <!-- json data -->
 <script src="js/store.js" type="text/javascript"></script>
-<script src="js/catalog.js" type="text/javascript"></script>
 
 <!-- templates -->
 <script src="js/templates/jquery.tmpl.min.js" type="text/javascript"></script>
@@ -285,11 +285,17 @@
     $( "#mainMenuTemplate" ).tmpl( mainMenuItems )
 	.appendTo( "#mainMenuLinks" );
 
-    var featuredItems = getFeaturedItems(Catalog,4);
+    $.get("xml/producten.xml",function(xml)
+    {
+        var Catalog = $.xml2json(xml).product;
+        var featuredItems = getFeaturedItems(Catalog,4);
+
+        $( "#productsTemplate" ).tmpl( featuredItems )
+                .appendTo( "#productList" );
+    });
 
 
-    $( "#productsTemplate" ).tmpl( featuredItems )
-	.appendTo( "#productList" );
+
 
     $( "#footerTemplate" ).tmpl( Store )
 	.appendTo( "#footer-bottom" );
