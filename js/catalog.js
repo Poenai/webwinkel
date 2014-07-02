@@ -85,7 +85,7 @@ Catalog =
 
         {
           "id": "44",
-          "category": "losse-producten",
+          "category": "pakket",
           "name": "Short sleeves black and orange",
           "brand":"Sylver T",
           "seoName": "short-sleeves-black-orange",
@@ -100,7 +100,7 @@ Catalog =
 
         {
           "id": "45",
-          "category": "losse-producten",
+          "category": "pakket",
           "name": "Short sleeves light blue",
           "brand":"Surf T",
           "seoName": "short-sleeves-light-blue",
