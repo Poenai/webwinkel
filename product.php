@@ -1,3 +1,7 @@
+<?php
+$xml = simplexml_load_file("xml/producten.xml");
+?>
+
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,7 +17,6 @@
 <!-- cart functions -->
 <script type="text/javascript" src="js/jquery/jquery-cookie.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.flexslider.js"></script>
-    <script src="http://jquery-xml2json-plugin.googlecode.com/svn/trunk/jquery.xml2json.js" type="text/javascript" language="javascript"></script>
 <script type="text/javascript" src="js/cart/shoppingcart-1-1.js"></script>
 <script type="text/javascript" src="js/cart/querystring.js"></script>
 <script type="text/javascript" src="js/cart/contact.js"></script>
@@ -34,6 +37,9 @@
 
 <!-- json data -->
 <script src="js/store.js" type="text/javascript"></script>
+<script>
+    var Catalog = <?= json_encode($xml); ?>.product;
+</script>
 
 <!-- templates -->
 <script src="js/templates/jquery.tmpl.min.js" type="text/javascript"></script>
@@ -296,23 +302,19 @@
 
 
     var page = decodeURIComponent($.urlParam('product'));
-    $.get("xml/producten.xml",function(xml)
-            {
-                var Catalog = $.xml2json(xml).product;
 
-                var product = getProduct(Catalog, page);
+    var product = getProduct(Catalog, page);
 
-                if(product) {
-                    //$( "#pageTemplate" ).tmpl( categoryNode[0] )
-                    //	.appendTo( "#pageText" );
-                    $(document).attr('title', product.name);
-                    $( "#productTemplate" ).tmpl( product )
-                            .appendTo( "#product" );
-                    $( "#productDetailsTemplate" ).tmpl( product )
-                            .appendTo( "#productDetails" );
-                }
-            }
-    );
+    if(product) {
+        //$( "#pageTemplate" ).tmpl( categoryNode[0] )
+        //	.appendTo( "#pageText" );
+        $(document).attr('title', product.name);
+        $( "#productTemplate" ).tmpl( product )
+                .appendTo( "#product" );
+        $( "#productDetailsTemplate" ).tmpl( product )
+                .appendTo( "#productDetails" );
+    }
+
     //var categoryNode = getMenuItemNode(Links,page);
 
     $(document).attr('title', Store.title);
