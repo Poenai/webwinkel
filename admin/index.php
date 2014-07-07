@@ -8,6 +8,19 @@
 //program code
 $xml = simplexml_load_file("../xml/producten.xml");
 
+if(!empty($_POST))
+{
+    $xml = new SimpleXMLElement('<Producten/>');
+    for($i=0;$i<count($_POST['id']);$i++)
+    {
+        $product = $xml->addChild("product");
+        foreach($_POST as $var=>$val)
+        {
+            $product->addChild($var, $val[$i]);
+        }
+    }
+    $xml->asXML("../xml/UpdatedProducten.xml");
+}
 
 //body code
 ?>
@@ -33,7 +46,7 @@ $xml = simplexml_load_file("../xml/producten.xml");
     <script src="../js/templates/jquery.tmpl.min.js" type="text/javascript"></script>
 
     <script>
-        var producten = <?= json_encode($xml); ?>;
+        var producten = <?= json_encode($xml); ?>.product;
     </script>
 
     <script id="productsTemplate" type="text/x-jquery-tmpl">
@@ -42,7 +55,7 @@ $xml = simplexml_load_file("../xml/producten.xml");
                 foreach( $xml->product[0] as $eName => $eValue)
                 {
                     print "<label for=\"" .$eName. "\">" .$eName. "</label>";
-                    print "<input type=\"text\" value=\"\${" .$eName. "}\"/>";
+                    print "<input type=\"text\" value=\"\${" .$eName. "}\" name=\"" .$eName. "[]\"/>";
                     print "<br/>";
                 }
             ?>
@@ -52,12 +65,18 @@ $xml = simplexml_load_file("../xml/producten.xml");
 <body>
 <div class="row">
     <div class="span12">
-        <ul id="productList" class="thumbnails product-list"></ul>
+        <form method="post">
+            <ul id="productList" class="thumbnails product-list"></ul>
+            <input type="submit"/>
+        </form>
     </div>
 </div>
+<?php
+var_dump($_POST);
+?>
 
 <script>
-    $( "#productsTemplate" ).tmpl( producten.product )
+    $( "#productsTemplate" ).tmpl( producten )
         .appendTo( "#productList" );
 </script>
 </body>
