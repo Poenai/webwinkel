@@ -73,7 +73,7 @@ Links =
             "type": "mainmenu"
         },
         {
-            "link": "category.html?category=pakket",
+            "link": "category.php?category=pakket",
             "name": "pakketen",
             "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             "label": "Pakketten",
@@ -82,7 +82,7 @@ Links =
             "type": "mainmenu"
         },
         {
-            "link": "category.html?category=los",
+            "link": "category.php?category=los",
             "label": "Losse producten",
             "highlight": "Voor maatwerk",
             "type": "mainmenu"
