@@ -67,6 +67,11 @@ if(!empty($_POST))
     <div class="span12">
         <form method="post">
             <ul id="productList" class="thumbnails product-list"></ul>
+            <!-- return false omdat anders formulier gesubmit wordt -->
+            <button onclick="AddProductRow(); return false;">
+                +
+             </button>
+            <br/>
             <input type="submit"/>
         </form>
     </div>
@@ -78,6 +83,11 @@ var_dump($_POST);
 <script>
     $( "#productsTemplate" ).tmpl( producten )
         .appendTo( "#productList" );
+
+    function AddProductRow()
+    {
+        $( "#productsTemplate").tmpl().appendTo( "#productList" );
+    }
 </script>
 </body>
 </html>
