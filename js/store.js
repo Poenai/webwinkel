@@ -57,7 +57,7 @@ Store =
 Links =
     [
         {
-            "link": "index.html",
+            "link": "index.php",
             "label": "Home",
             "type": "menu"
         },
@@ -67,7 +67,7 @@ Links =
             "type": "menu"
         },
         {
-            "link": "index.html",
+            "link": "index.php",
             "label": "Home",
             "highlight": "Home",
             "type": "mainmenu"

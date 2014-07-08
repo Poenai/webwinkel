@@ -47,9 +47,9 @@ $xml = simplexml_load_file("xml/producten.xml");
 
 	<script id="brandingTemplate" type="text/x-jquery-tmpl">
 		{{if logo}} 
-			<a href="index.html"><img src="img/store/${logo}"></a>
+			<a href="index.php"><img src="img/store/${logo}"></a>
 		{{else}} 
-			<h1><a href="index.html">${storeName}</a></h1> 
+			<h1><a href="index.php">${storeName}</a></h1>
 		{{/if}}
 	</script>
 
@@ -90,7 +90,7 @@ $xml = simplexml_load_file("xml/producten.xml");
 				<a href="product.php?product=${seoName}"><img alt="" src="img/products/${image}"></a>
 				<p><h3>${formatedPrice}</h3></p>
 				<div class="bottom">
-					<a class="view" href="product.html?product=${seoName}">bekijk</a> / 
+					<a class="view" href="product.php?product=${seoName}">bekijk</a> /
 					<a class="addcart addToCart" href="#" productId="${id}">toevoegen aan winkelwagen</a>
 				</div>
 			</div>
