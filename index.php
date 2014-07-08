@@ -1,3 +1,8 @@
+<?php
+$xml = simplexml_load_file("xml/producten.xml");
+?>
+
+
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,7 +18,6 @@
 <!-- cart functions -->
 <script type="text/javascript" src="js/jquery/jquery-cookie.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.flexslider.js"></script>
-    <script src="http://jquery-xml2json-plugin.googlecode.com/svn/trunk/jquery.xml2json.js" type="text/javascript" language="javascript"></script>
 <script type="text/javascript" src="js/cart/shoppingcart-1-1.js"></script>
 <script type="text/javascript" src="js/cart/querystring.js"></script>
 <script type="text/javascript" src="js/cart/contact.js"></script>
@@ -23,6 +27,9 @@
 
 <!-- json data -->
 <script src="js/store.js" type="text/javascript"></script>
+<script>
+    var Catalog = <?= json_encode($xml); ?>.product;
+</script>
 
 <!-- templates -->
 <script src="js/templates/jquery.tmpl.min.js" type="text/javascript"></script>
@@ -40,9 +47,9 @@
 
 	<script id="brandingTemplate" type="text/x-jquery-tmpl">
 		{{if logo}} 
-			<a href="index.html"><img src="img/store/${logo}"></a>
+			<a href="index.php"><img src="img/store/${logo}"></a>
 		{{else}} 
-			<h1><a href="index.html">${storeName}</a></h1> 
+			<h1><a href="index.php">${storeName}</a></h1>
 		{{/if}}
 	</script>
 
@@ -79,11 +86,11 @@
 	<script id="productsTemplate" type="text/x-jquery-tmpl">
 		<li class="span3">
 			<div class="product-box">                                        
-				<a href="product.html?product=${seoName}"><h4>${name}</h4></a>
-				<a href="product.html?product=${seoName}"><img alt="" src="img/products/${image}"></a>
+				<a href="product.php?product=${seoName}"><h4>${name}</h4></a>
+				<a href="product.php?product=${seoName}"><img alt="" src="img/products/${image}"></a>
 				<p><h3>${formatedPrice}</h3></p>
 				<div class="bottom">
-					<a class="view" href="product.html?product=${seoName}">bekijk</a> / 
+					<a class="view" href="product.php?product=${seoName}">bekijk</a> /
 					<a class="addcart addToCart" href="#" productId="${id}">toevoegen aan winkelwagen</a>
 				</div>
 			</div>
@@ -285,14 +292,12 @@
     $( "#mainMenuTemplate" ).tmpl( mainMenuItems )
 	.appendTo( "#mainMenuLinks" );
 
-    $.get("xml/producten.xml",function(xml)
-    {
-        var Catalog = $.xml2json(xml).product;
-        var featuredItems = getFeaturedItems(Catalog,4);
 
-        $( "#productsTemplate" ).tmpl( featuredItems )
-                .appendTo( "#productList" );
-    });
+    var featuredItems = getFeaturedItems(Catalog,4);
+
+    $( "#productsTemplate" ).tmpl( featuredItems )
+            .appendTo( "#productList" );
+
 
 
 
