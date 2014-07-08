@@ -51,6 +51,10 @@ if(!empty($_POST))
 
     <script id="productsTemplate" type="text/x-jquery-tmpl">
 		<li class="span3">
+		    <button onclick="DeleteProductRow(this);return false;">
+		        delete product
+		    </button>
+		    <br/>
             <?php
                 foreach( $xml->product[0] as $eName => $eValue)
                 {
@@ -87,6 +91,12 @@ var_dump($_POST);
     function AddProductRow()
     {
         $( "#productsTemplate").tmpl().appendTo( "#productList" );
+    }
+
+    function DeleteProductRow(x)
+    {
+        //remove parrent waar het hele blok inzit
+        x.parentNode.remove();
     }
 </script>
 </body>
