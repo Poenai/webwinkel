@@ -247,6 +247,26 @@
 				var FOOTER = FOOTER_HEADER + '<table class="table-nr" style="margin-bottom: 0px"><tbody><tr style="background-color: transparent;"><td colspan="2" style="border-top: none;">' + MESSAGE_BLOCK + '</td></tr>';
 				FOOTER = FOOTER + '<tr style="background-color: transparent"><td style="border-top: none;">' + PP_MESSAGE_BLOCK + '</td><td style="border-top: none;"><div class="pull-right">' + PP_BUTTON_BLOCK + '</div></td></tr>';
 
+                var GET_LINK_TO_FACTUUR = "";
+                //kijk of er producten zijn
+                if(products!=null && products!='') {
+                    //haal ieder product appart in een array een componenet ziet er uit als bijv: "40&2"
+                    //eerste is het id en tweede is het aantal
+                    productstrings = products.split("|");
+                    // insperatie van http://stackoverflow.com/a/111545
+                    var URLComponenten = [];
+                    for(var number in productstrings)
+                    {
+                        var product = productstrings[number];
+                        var productParts = product.split('&');
+                        URLComponenten.push("ID"+encodeURIComponent(productParts[0]) + "=" + encodeURIComponent(productParts[1]));
+                    }
+                    GET_LINK_TO_FACTUUR = "?" + URLComponenten.join("&");
+                }
+
+                //eigen regel met html toevoegen
+                FOOTER = FOOTER + "<a href='factuur/"+GET_LINK_TO_FACTUUR+"'>AFREKENEN</a> ";
+
 				FOOTER = FOOTER + '</tbody></table>';
 				
 
