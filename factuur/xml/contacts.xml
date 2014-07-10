@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<contacts>
+    <contact id="1">
+        <naam>John Doe</naam>
+        <straat>Heiligeweg</straat>
+        <huisnummer>23</huisnummer>
+        <postcode>1012xn</postcode>
+        <plaats>Amsterdam</plaats>
+        <telefoon>020-3827432</telefoon>
+    </contact>
+    <contact id="2">
+        <naam>Jane Doe</naam>
+        <straat>Schoolenaerlaan</straat>
+        <huisnummer>14</huisnummer>
+        <postcode>2034ka</postcode>
+        <plaats>Haarlem</plaats>
+        <telefoon>06-15489645</telefoon>
+    </contact>
+    <contact id="3">
+        <naam>Stephany Doe</naam>
+        <straat>Ommerenveldseweg </straat>
+        <huisnummer>27</huisnummer>
+        <postcode>4032NA</postcode>
+        <plaats>Ommeren</plaats>
+        <telefoon>034-9382732</telefoon>
+    </contact>
+    <contact id="4">
+        <naam>Steve Doe</naam>
+        <straat>Nieuwe Binnenweg</straat>
+        <huisnummer>103</huisnummer>
+        <postcode>3014gh</postcode>
+        <plaats>Rotterdam</plaats>
+        <telefoon>010-4829346</telefoon>
+    </contact>
+</contacts>

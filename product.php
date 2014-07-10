@@ -6,7 +6,7 @@ $xml = simplexml_load_file("xml/producten.xml");
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>Surf T Shop</title>
+    <title>Drive Perfect By Poenai</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">    
 
@@ -85,19 +85,19 @@ $xml = simplexml_load_file("xml/producten.xml");
 			</div>
 			<div class="span7">
 				<address>
-					<strong>Name:</strong> <span>${name}</span><br>
-					<strong>Brand:</strong> <span>${brand}</span><br>
-					<strong>Product Code:</strong> <span>${id}</span><br>
+					<strong>Artikel:</strong> <span>${name}</span><br>
+					<strong>Merk:</strong> <span>${brand}</span><br>
+					<strong>ProductID:</strong> <span>${id}</span><br>
                                         {{if availability}} 
-					<strong>Availability:</strong> <span>{{if availability=='yes'}} In Stock{{else}} Out Of Stock{{/if}}</span><br>
+					<strong>Beschikbaar:</strong> <span>{{if availability=='yes'}} Beschikbaar{{else}} Niet beschikbaar{{/if}}</span><br>
                                         {{/if}}								
 				</address>
-				<h4><strong>Price: ${formatedPrice}</strong></h4>
+				<h4><strong>Prijs: €{formatedPrice}</strong></h4>
 
 				<form class="form-inline">								
-					<label>Qty:</label>
+					<label>Aantal:</label>
 					<input class="span1" placeholder="1" type="text" id="quantity-productId-${id}">
-					<button class="addToCart btn-success" type="button" productid="${id}">Add to cart</button>
+					<button class="addToCart btn-success" type="button" productid="${id}">Zet in winkelwagen</button>
 				</form>
 
 				<ul class="social">
@@ -133,7 +133,7 @@ $xml = simplexml_load_file("xml/producten.xml");
 	<script id="footerTemplate" type="text/x-jquery-tmpl">
 				<div class="container">
 				   <div class="row">
-					<div class="span12 text">${footer} &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; Powered by <a href="www.cocoacart.com">Cocoacart</a></div>
+					<div class="span12 text">${footer} &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; Drive Perfect By Poenai</div>
 				   </div>
 				 </div>
 	</script>
@@ -173,15 +173,15 @@ $xml = simplexml_load_file("xml/producten.xml");
 					<!-- Shopping Cart section do not edit -->
 					<div class="btn-group pull-right" style="padding-top: 8px;">
             					<i class="icon-shopping-cart icon-black"></i>
-            					<a id="open-cart" class="open noboxshadow dropdown-toggle" data-toggle="dropdown" href="#" style="box-shadow:none;color:FF8C00;">My Cart</a>
+            					<a id="open-cart" class="open noboxshadow dropdown-toggle" data-toggle="dropdown" href="#" style="box-shadow:none;color:FF8C00;">Mijn winkelwagen</a>
            		 			<span id="cartinfo">
-                  					<span id="cartqty">(0 items)</span>&nbsp;<span id="cartprice">$0.00</span>
+                  					<span id="cartqty">(0 items)</span>&nbsp;<span id="cartprice">€0.00</span>
             					</span>
             					<ul class="dropdown-menu minicart">
               						<li>
                   						<div id="cart-box" class="box-cart">
                   							<div class="box-content clearfix">
-                  								<h3 class="lbw">Shopping Cart</h3>&nbsp;<span id="checkout-wait" style="width:15%;display:none;"><img src="img/misc/wait18trans.gif"></span><br/>
+                  								<h3 class="lbw">Winkelwagen</h3>&nbsp;<span id="checkout-wait" style="width:15%;display:none;"><img src="img/misc/wait18trans.gif"></span><br/>
 		                  						<div id="shoppingcart">
 		                  						</div>
 	                  						</div>
@@ -255,22 +255,22 @@ $xml = simplexml_load_file("xml/producten.xml");
 <!-- Contact Form -->
 <form id="contactform" action="#" method="post">
 
-  <h2>Send us an email...</h2>
+  <h2>Stuur een email...</h2>
 
   <ul>
 
     <li>
-      <label for="senderName">Your Name</label>
+      <label for="senderName">Naam</label>
       <input type="text" name="senderName" id="senderName" placeholder="Please type your name" required="required" maxlength="40" />
     </li>
 
     <li>
-      <label for="senderEmail">Your Email Address</label>
+      <label for="senderEmail">Email</label>
       <input type="email" name="senderEmail" id="senderEmail" placeholder="Please type your email address" required="required" maxlength="50" />
     </li>
 
     <li>
-      <label for="message" style="padding-top: .5em;">Your Message</label>
+      <label for="message" style="padding-top: .5em;">Uw vraag</label>
       <textarea name="senderMessage" id="senderMessage" placeholder="Please type your message" required="required" cols="80" rows="10" maxlength="10000"></textarea>
     </li>
 
@@ -282,11 +282,11 @@ $xml = simplexml_load_file("xml/producten.xml");
   </div>
 
 </form>
-<div id="sendingMessage" class="statusMessage"><p>Sending your message. Please wait...</p></div>
-<div id="successMessage" class="statusMessage"><p>Thanks for sending your message! We'll get back to you shortly.</p></div>
-<div id="failureMessage" class="statusMessage"><p>There was a problem sending your message. Please try again.</p></div>
-<div id="incompleteMessage" class="statusMessage"><p>Please complete all the fields in the form before sending.</p></div>
-<div id="addToCartMessage" class="statusMessage"><p>Adding product to cart...</p></div>
+<div id="sendingMessage" class="statusMessage"><p>Wodt verstuurd, een ogenblik geduld</p></div>
+<div id="successMessage" class="statusMessage"><p>Bedankt, we nemen spoedig contact met u op.</p></div>
+<div id="failureMessage" class="statusMessage"><p>Er is een probleem, probeer nog een keer.</p></div>
+<div id="incompleteMessage" class="statusMessage"><p>Vul alle velden in.</p></div>
+<div id="addToCartMessage" class="statusMessage"><p>Wordt toegevoegd aan mandje...</p></div>
 
 
 
