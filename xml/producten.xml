@@ -13,6 +13,7 @@
         <highlight>Rijles van 60 min</highlight>
         <image>shirt4.jpg</image>
         <description>1 enkele rijles</description>
+        <BTWpercentage>21</BTWpercentage>
     </product>
     <product>
         <id>41</id>
@@ -27,6 +28,7 @@
         <highlight>Cool t shirts</highlight>
         <image>shirt2.jpg</image>
         <description>Coolest selection of short sleeves t-shirts</description>
+        <BTWpercentage>21</BTWpercentage>
     </product>
 <product>
 <id>42</id>
@@ -41,6 +43,7 @@
 <highlight>Cool t shirts</highlight>
 <image>shirt1.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 <product>
 <id>43</id>
@@ -55,6 +58,7 @@
 <highlight>Cool t shirts</highlight>
 <image>shirt7.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 <product>
 <id>44</id>
@@ -69,6 +73,7 @@
 <highlight>Cool t shirts</highlight>
 <image>shirt8.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 <product>
 <id>45</id>
@@ -83,6 +88,7 @@
 <highlight>Cool t shirts</highlight>
 <image>shirt6.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 <product>
 <id>50</id>
@@ -97,6 +103,7 @@
 <highlight>Cool t shirts</highlight>
 <image>shirt9.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 <product>
 <id>51</id>
@@ -111,6 +118,7 @@
 <highlight>Cool t shirts</highlight>
 <image>shirt5.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 <product>
 <id>52</id>
@@ -125,6 +133,7 @@
 <highlight>Cool t shirts</highlight>
 <image>shirt3.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 <product>
 <id>53</id>
@@ -138,6 +147,7 @@
 <seoName>short-sleeves</seoName>
 <image>shirt3.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 <product>
 <id>54</id>
@@ -151,5 +161,6 @@
 <seoName>short-sleeves</seoName>
 <image>shirt3.jpg</image>
 <description>Coolest selection of short sleeves t-shirts</description>
+    <BTWpercentage>21</BTWpercentage>
         </product>
 </producten>

@@ -1,3 +1,8 @@
+<?php
+$xml = simplexml_load_file("../xml/producten.xml");
+
+
+?>
 <!doctype html>
 <html>
 	<head>
@@ -11,7 +16,6 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <script src="https://jquery-ui.googlecode.com/svn-history/r3982/trunk/ui/i18n/jquery.ui.datepicker-nl.js"></script>
-		<script src="js/jquery.xml2json.js"></script>
         <script src="js/moment.min.js"></script>
         <script src="js/jquery.daterangepicker.js"></script>
         <script src="js/jquery.keyboard.min.js"></script>
@@ -220,84 +224,83 @@
         $_GET[decode(arguments[1])] = decode(arguments[2]);
     });
 
-    $.get('xml/producten.xml', function(xml){
-		var producten = $.xml2json(xml);
 
-        var counter = 0;
-        if(jQuery.isEmptyObject($_GET)) {
-            $.each(producten.product, function(i, item) {
-                var id = this.id;
-                var disabled = '';
+    var producten = <?= json_encode($xml); ?>;
+
+    var counter = 0;
+    if(jQuery.isEmptyObject($_GET)) {
+        $.each(producten.product, function(i, item) {
+            var id = this.id;
+            var disabled = '';
+            if(id.toString().indexOf('.') !== -1){
+                var disabled = 'disabled';
+                $(".inventory > tbody:last").append('<tr id="row'+id+'"><td><span>'+this.name+'</span></td><td style="text-align:right;"><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.price))+'</span></td><td style=display:none;><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onchange="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="0" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.price) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td style="text-align:left;"><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
+                var idParent = id.toString().replace('.1','');
+                $("#td-id-"+idParent).attr("rowspan","2");
+                $("#td-id-"+idParent).attr("style","vertical-align:middle;text-align:center;");
+                $("#td-aantal-"+idParent).attr("rowspan","2");
+                $("#td-aantal-"+idParent).attr("style","vertical-align:middle;text-align:center;");
+            }
+            else {
+                $(".inventory > tbody:last").append('<tr id="row'+id+'"><td id="td-id-'+id+'" style="text-align:center;">'+id+'</td><td><span>'+this.name+'</span></td><td><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.price))+'</span></td><td id="td-aantal-'+id+'"><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onchange="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="0" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.price) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
+            }
+            window.info[counter] = [];
+            window.info[counter]['Naam'] = this.name;
+            window.info[counter]['Brutotarief'] = parseFloat(this.price);
+            window.info[counter]['BTWpercentage'] = this.BTWpercentage;
+            window.info[counter]['SubBruto'] = 0.00;
+            window.info[counter]['SubNetto'] = 0.00;
+            counter++;
+        });
+    }
+    else {
+        $.each(producten.product, function(i, item) {
+            var id = this.id;
+            var disabled = 'disabled';
+            var idtemp = id.replace('.1','');
+            var idclean = id.replace('.1','\\.1')
+            if(typeof $_GET['ID'+idtemp] != 'undefined')
+            {
                 if(id.toString().indexOf('.') !== -1){
-                    var disabled = 'disabled';
-                    $(".inventory > tbody:last").append('<tr id="row'+id+'"><td><span>'+this.Naam+'</span></td><td style="text-align:right;"><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.Brutotarief))+'</span></td><td style=display:none;><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onchange="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="0" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.Brutotarief) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td style="text-align:left;"><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
-                    var idParent = id.toString().replace('.1','');
-                    $("#td-id-"+idParent).attr("rowspan","2");
-                    $("#td-id-"+idParent).attr("style","vertical-align:middle;text-align:center;");
-                    $("#td-aantal-"+idParent).attr("rowspan","2");
-                    $("#td-aantal-"+idParent).attr("style","vertical-align:middle;text-align:center;");
+                    $(".inventory > tbody:last").append('<tr id="row'+id+'"></td><td><span>'+this.name+'</span></td><td style="text-align:right;"><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.price))+'</span></td><td style="display:none"><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onkeyup="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="'+$_GET['ID'+idtemp]+'" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.price) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td style="text-align:left;"><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
+                    $("#td-id-"+idtemp).attr("rowspan","2");
+                    $("#td-id-"+idtemp).attr("style","vertical-align:middle;text-align:center;");
+                    $("#td-aantal-"+idtemp).attr("rowspan","2");
+                    $("#td-aantal-"+idtemp).attr("style","vertical-align:middle;text-align:center;");
                 }
                 else {
-                    $(".inventory > tbody:last").append('<tr id="row'+id+'"><td id="td-id-'+id+'" style="text-align:center;">'+id+'</td><td><span>'+this.Naam+'</span></td><td><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.Brutotarief))+'</span></td><td id="td-aantal-'+id+'"><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onchange="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="0" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.Brutotarief) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
+                    $(".inventory > tbody:last").append('<tr id="row'+id+'"><td id="td-id-'+id+'"><span>'+id+'</span></td><td><span>'+this.name+'</span></td><td><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.price))+'</span></td><td id="td-aantal-'+id+'"><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onkeyup="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="'+$_GET['ID'+idtemp]+'" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.price) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
                 }
+
+
                 window.info[counter] = [];
-                window.info[counter]['Naam'] = this.Naam;
-                window.info[counter]['Brutotarief'] = parseFloat(this.Brutotarief);
+                window.info[counter]['Naam'] = this.name;
+                console.log(window.info[counter]);
+                window.info[counter]['Brutotarief'] = parseFloat(this.price);
                 window.info[counter]['BTWpercentage'] = this.BTWpercentage;
                 window.info[counter]['SubBruto'] = 0.00;
                 window.info[counter]['SubNetto'] = 0.00;
+
+                calcPrice(idclean, counter);
                 counter++;
-            });
-        }
-        else {
-            $.each(producten.product, function(i, item) {
-                var id = this.id;
-                var disabled = 'disabled';
-                var idtemp = id.replace('.1','');
-                var idclean = id.replace('.1','\\.1')
-                if(typeof $_GET['ID'+idtemp] != 'undefined')
-                {
-                    if(id.toString().indexOf('.') !== -1){
-                        $(".inventory > tbody:last").append('<tr id="row'+id+'"></td><td><span>'+this.Naam+'</span></td><td style="text-align:right;"><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.Brutotarief))+'</span></td><td style="display:none"><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onkeyup="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="'+$_GET['ID'+idtemp]+'" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.Brutotarief) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td style="text-align:left;"><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
-                        $("#td-id-"+idtemp).attr("rowspan","2");
-                        $("#td-id-"+idtemp).attr("style","vertical-align:middle;text-align:center;");
-                        $("#td-aantal-"+idtemp).attr("rowspan","2");
-                        $("#td-aantal-"+idtemp).attr("style","vertical-align:middle;text-align:center;");
-                    }
-                    else {
-                        $(".inventory > tbody:last").append('<tr id="row'+id+'"><td id="td-id-'+id+'"><span>'+id+'</span></td><td><span>'+this.Naam+'</span></td><td><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.Brutotarief))+'</span></td><td id="td-aantal-'+id+'"><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onkeyup="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="'+$_GET['ID'+idtemp]+'" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.Brutotarief) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
-                    }
-
-
-                    window.info[counter] = [];
-                    window.info[counter]['Naam'] = this.Naam;
-                    window.info[counter]['Brutotarief'] = parseFloat(this.Brutotarief);
-                    window.info[counter]['BTWpercentage'] = this.BTWpercentage;
-                    window.info[counter]['SubBruto'] = 0.00;
-                    window.info[counter]['SubNetto'] = 0.00;
-
-                    calcPrice(idclean, counter);
-                    counter++;
-                }
-            });
-        }
-        $('.virtualKeyboard').keyboard({
-            layout: 'custom',
-            customLayout: {
-                'default' : [
-                    '7 8 9',
-                    '4 5 6',
-                    '1 2 3',
-                    '{c} 0 {a}',
-                    '{bksp}'
-                ]
-            },
-            maxLength : 6,
-            restrictInput : true, // Prevent keys not in the displayed keyboard from being typed in
-            useCombos : false // don't want A+E to become a ligature
-        }).addTyping();
-
-	});
+            }
+        });
+    }
+    $('.virtualKeyboard').keyboard({
+        layout: 'custom',
+        customLayout: {
+            'default' : [
+                '7 8 9',
+                '4 5 6',
+                '1 2 3',
+                '{c} 0 {a}',
+                '{bksp}'
+            ]
+        },
+        maxLength : 6,
+        restrictInput : true, // Prevent keys not in the displayed keyboard from being typed in
+        useCombos : false // don't want A+E to become a ligature
+    }).addTyping();
 
     $(document).ready(function() {
 
