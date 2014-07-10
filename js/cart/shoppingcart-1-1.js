@@ -204,9 +204,9 @@
 			var GRAND_TOTAL_AMOUNT_PREPENDER = '<font class="total-box-price">';
 			var GRAND_TOTAL_AMOUNT_APPENDER = '</font></font></div></div>';
 
-				
+
 			if(globalproducts!='') {
-				
+
 				//do not edit
 				var checkout_total= '<strong><span id="checkout-total"></span></strong>';
 				var checkout_all_total= '<strong><span id="checkout-total-plus"></span></strong>';
@@ -225,7 +225,7 @@
 					if(checkoutAdditionalCost > 0) {
 						var additionalCostsLinePrice = TOTAL_ADDITIONAL_LINE_AMOUNT_PREPENDER + currency + round_decimals(checkoutAdditionalCost,2) + TOTAL_ADDITIONAL_LINE_AMOUNT_APPENDER;
 						additionalCosts = additionalCosts + additionalCostsLinePrice;
-					} 
+					}
 					additionalCosts = additionalCosts + TOTALS_ADDITIONAL_APPENDER;
 					if(checkoutAdditionalCost > 0) {
 						totalLine = GRAND_TOTAL_LABEL_PREPENDER + labelTotal + GRAND_TOTAL_LABEL_APPENDER + GRAND_TOTAL_AMOUNT_PREPENDER + checkout_all_total + GRAND_TOTAL_AMOUNT_APPENDER;
@@ -243,12 +243,31 @@
 
 
 				//globalproducts = globalproducts + FOOTER_HEADER;
-				
-				var FOOTER = FOOTER_HEADER + '<table class="table-nr" style="margin-bottom: 0px"><tbody><tr style="background-color: transparent;"><td colspan="2" style="border-top: none;">' + MESSAGE_BLOCK + '</td></tr>';
-				FOOTER = FOOTER + '<tr style="background-color: transparent"><td style="border-top: none;">' + PP_MESSAGE_BLOCK + '</td><td style="border-top: none;"><div class="pull-right">' + PP_BUTTON_BLOCK + '</div></td></tr>';
+
+				var FOOTER = FOOTER_HEADER + '<table class="table-nr" style="margin-bottom: 0px"><tbody>';
+
+                var GET_LINK_TO_FACTUUR = "";
+                //kijk of er producten zijn
+                if(products!=null && products!='') {
+                    //haal ieder product appart in een array een componenet ziet er uit als bijv: "40&2"
+                    //eerste is het id en tweede is het aantal
+                    productstrings = products.split("|");
+                    // insperatie van http://stackoverflow.com/a/111545
+                    var URLComponenten = [];
+                    for(var number in productstrings)
+                    {
+                        var product = productstrings[number];
+                        var productParts = product.split('&');
+                        URLComponenten.push("ID"+encodeURIComponent(productParts[0]) + "=" + encodeURIComponent(productParts[1]));
+                    }
+                    GET_LINK_TO_FACTUUR = "?" + URLComponenten.join("&");
+                }
+
+                //eigen regel met html toevoegen
+                FOOTER = FOOTER + "<a href='factuur/"+GET_LINK_TO_FACTUUR+"' target='_blank' >AFREKENEN</a> ";
 
 				FOOTER = FOOTER + '</tbody></table>';
-				
+
 
 				//globalproducts = globalproducts + '<div><img src="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif" border="0" width="110" alt="Checkout with paypal"><a href="javascript:invokePayPal();" id="paypal-checkout"><img border="0" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="right"></a></div>';
 
@@ -256,7 +275,7 @@
 
 				globalproducts = globalproducts + FOOTER;
 
-				
+
 				$("#shoppingcart").html(globalproducts);
 
 				addCartBindings();
@@ -286,156 +305,6 @@
 	}
 
 
-	function invokePayPal() {
-		if(win) {
-			win.close();
-
-		}
-
-		//set purchased products in a cookie
-
-
-		var otherCost = checkoutAdditionalCost;
-
-
-		var total = parseFloat(calculatePriceQty());
-
-		if($('#shipping')) {
-			var shippingCode = $('#shipping').val();
-			if(Store.shipping) {
-				var shipping = getShipping(Store.shipping,shippingCode);
-				if(shipping!=null) {
-					otherCost = shipping.cost;
-				}
-			}
-		}
-
-
-
-
-		if(otherCost>0) {
-			total = total + parseFloat(round_decimals(otherCost,2));
-		}
-			
-		total = round_decimals(total,2);
-		if($("#checkout-wait")) {
-			$("#checkout-wait").show();
-		}
-
-		url = "payment/standard-api.php";
-
-		//check mode
-		if(mode=='embedded') {
-			url = "payment/embedded-api.php";
-
-		} 
-
-
-		var pdata = "payPalUser=" + payPalUser + "&pcancel=" + pcancel + "&preturn=" + preturn;
-		
-		var productsArray = getCartProducts();
-		//var products = '&products=';
-		var productsJSON = '[';
-		var files = null;
-		var count = 0;
-		for(i=0; i<productsArray.length; i++) {
-
-			var name = productsArray[i].product.name;
-
-
-			if(productsArray[i].property) {
-				name = name + ' - (' + productsArray[i].property + ')';
-			}
-
-
-			name = encodeURIComponent(name); 			
-
-			productsJSON = productsJSON + '{"name":"' + name + '","id":"' + productsArray[i].product.id + '","qty":"' + productsArray[i].qty + '","itemPrice":"' + productsArray[i].product.price + '"';
-   			var price = parseFloat(round_decimals(productsArray[i].qty * productsArray[i].product.price,2));
-			productsJSON = productsJSON + ',"price":"' + price +'"';
-			if(productsArray[i].product.filename) {
-				productsJSON = productsJSON + ',"file":"' + productsArray[i].product.filename +'"';
-			}
-			productsJSON = productsJSON + "}";
-			count ++;
-			
-			if(count<productsArray.length) {
-				productsJSON = productsJSON + ',';
-			}
-		}
-		productsJSON = productsJSON + ']';
-
-		var dataStart = '{';
-		var dataEnd = '}';
-		var data = '"currency":"' + currencyCode + '","total":"' + total + '"';
-
-		if(otherCost > 0) {				
-			data = data + ',"variableAdditionalCost":"' + variableAdditionalCost +'","additionalCost":"' + round_decimals(otherCost,2) + '"';
-		}
-
-
-		if(Store.askshipping && Store.askshipping==true) {
-			data = data + ',"askshipping":"true"';
-		}
-
-		if($('#memo')) {
-			var memo = encodeURIComponent($('#memo').val()); 
-			data = data + ',"memo":"' + memo + '"';
-		}
-
-		var data = data + ',"products":' + productsJSON;
-
-		var jsonData = dataStart + data + dataEnd;
-
-		//alert(jsonData);
-		//alert(pdata);
-
-		//alert(url + '?' + pdata + '&data=' + jsonData);
-
-		$.ajax({
-        		type: "POST",
-        		url: url + '?' + pdata + '&data=' + jsonData,
-
-			
-        		//data: jsonData,
-        		dataType: "json",
-        		success: function(data) {
-
-			     $("#checkout-wait").hide();
-            		     if(data.error){
-                		  $("#message").html("<font color='red'>" + data.error + " Try again.</font>");
-				  alert(data.error);
-				  if($("#checkout-wait")) {
-				 	$("#checkout-wait").hide();
-				  }
-            		     } else {
-				    //$("div#cart-box").slideUp("slow");
-				    $("#toggle-cart a").toggle();
-				    if(data) {
-				      $.cookie('payKey',data.payKey, { expires: 1 ,path: '/'});
-   				      if(mode=='embedded') {
-					launchEmbedded(data.payKey);
-				      } else {
-					buildPayPalForm(data.payKey);
-				      }
-
-				     if($("#checkout-wait")) {
-				 	$("#checkout-wait").hide();
-				     }
-				  }
-            		     }
-        	       },
-		       error: function() {
-				 if($("#checkout-wait")) {
-				 	$("#checkout-wait").hide();
-				 }
-				 $("#message").html("<font color='red'>An error occurred while accessing " + url + " try again.</font>");
-
-		       }
-       		});  
-
-	}
-
 
 	function addBindings() {
 
@@ -457,24 +326,6 @@
 					}
 					addProductToCart(Catalog, sku, quantity,property);
 					fillCart();
-					setTimeout(fadeOutContent,2000);
-			});
-
-			$(".pay").click(function(){ 
-					fadeInContent();
-
-					var sku = $(this).attr("productId");
-					var qty = '#quantity-productId-'+ sku;
-					var prop = '#property-productId-'+ sku;
-					var quantity = $(qty).val();
-					var property=null;
-					if(prop) {
-						property = $(prop).val();
-					}
-					if(!quantity || quantity==null || quantity==0) {
-						quantity = 1;
-					}
-					addProductToCart(Catalog, sku, quantity,property);
 					setTimeout(fadeOutContent,2000);
 			});
 
@@ -578,47 +429,8 @@
 	}
 
 
-	function buildPayPalForm(payKey) {
 
-		var products = $.cookie( 'sku' );
-		if(products!=null) {
-			var productsArray = products.split("|");
-			var form = '<form id="payPalForm" method="post" action="' + payPalUrl + '"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="business" value="' +payPalUser+ '">';
-			if(productsArray.length>1) {
-				var count = 0;
-				for ( var i = 0; i < productsArray .length; i++ )  {
-					var skuQty = productsArray[i];
-					var productLine = printProductPayPal(skuQty,count);
-					if(productLine==null) {
-						continue;
-					}
-					count++;
-					form = form + productLine;
-				}
-			} else {
-				var skuQty = productsArray[0];
-				var productLine = printProductPayPal(skuQty,0);
-				//alert(productLine);
-				if(productLine==null) {
-
-					productLine='Nothing to display';
-				}
-				form = form + productLine;
-			}
-			if(checkoutAdditionalCost > 0) {				
-				form = form + '<input type="hidden" name="' + variableAdditionalCost +'" value="' + round_decimals(checkoutAdditionalCost,2)+'">';
-			}
-			form = form + '<input type="hidden" name="bn" value="Shopizer_Cart_WPS">';
-			form = form + '<input type="hidden" name="currency_code" value="' + currencyCode + '"><input type="hidden" name="custom" value="' + $.cookie('payKey') +'" ><input type="hidden" name="cancel_return" value="' + pcancel + '"><input type="hidden" name="return" value="' + preturn +'"><input type="hidden" name="notify_url" value="' + ipn + '"></form>';
-
-			alert(form);
-			$("#payment-form").html(form);
-			$("#payPalForm").submit(); 
-		}
-	}
-
-			
-
+//product wordt zichtbaar geprint in het winkelmandje
 	function printProduct(skuQty,mode) {
 		var productDetails = skuQty.split("&");
 		var line = '';
@@ -631,15 +443,15 @@
 		var name = '';
 		var qty = 1;
 		for ( var j = 0; j < productDetails.length; j++ )  {
-			if(j==0) {//sku	
+			if(j==0) {//sku
 				sku = productDetails[j];
-				
+
 				//get product entity from sku
 				var product = getProductById(Catalog,sku);
 				if(!product) {//delete from cookie
 					removeItem(sku);
 					return null;
-				} 
+				}
 				name = product.name;
 				price = product.price;
 			}
@@ -648,31 +460,31 @@
 					return null;
 				}
 				qty = productDetails[j];
-			}					
+			}
 		}
-		
+
 		var GLOBAL_PREPEND= '';
 		var CART_PREPEND_ID = '<tr class="cart-product" id="';
 		var CART_APPEND_ID = '">';
-		
+
 		var CART_PREPEND_QTY = '<td><strong>';
 		var CART_APPEND_QTY = '</strong></td>';
-		
+
 		var CART_PREPEND_PRICE = '<td>';
 		var CART_APPEND_PRICE = '</td>';
-		
+
 		var CART_PREPEND_IMAGE = '<td><img width="40" height="40" src="img/products/';
 		var CART_APPEND_IMAGE = '"></td>';
-		
+
 		var CART_PREPEND_NAME = '<td>';
 		var CART_APPEND_NAME = '</td>';
-		
+
 		var CART_PREPEND_REMOVE = '<td><button class="close removeProductIcon" productid="';
 		var CART_APPEND_REMOVE = '">x</button></tr>';
 		var GLOBAL_APPEND= '';
 
 
-		
+
 		line = CART_PREPEND_ID + sku + CART_APPEND_ID;
 		if(mode==2) {
 			qtyLine  = CART_PREPEND_QTY + qty + CART_APPEND_QTY;
@@ -689,58 +501,17 @@
 		if(useShoppingCartImage && product.image) {
 			image = CART_PREPEND_IMAGE + product.image + CART_APPEND_IMAGE;
 		}
-		
+
 		var productNameLine = CART_PREPEND_NAME + qtyLine + ' ' + nameLine + CART_APPEND_NAME;
-		
-		var removeLine = CART_PREPEND_REMOVE + sku + CART_APPEND_REMOVE;	
+
+		var removeLine = CART_PREPEND_REMOVE + sku + CART_APPEND_REMOVE;
 
 		if(mode==1) {
-			line = GLOBAL_PREPEND + line +  image + productNameLine + priceLine + removeLine + GLOBAL_APPEND;	
+			line = GLOBAL_PREPEND + line +  image + productNameLine + priceLine + removeLine + GLOBAL_APPEND;
 		} else if(mode==2) {
-			line = line + qtyLine + '<div class="col2">' + nameLine + '</div>' + '<div class="col3">' + priceLine + '</div></div><div class="clear-float"></div>';	
-		}  
-
-		return line;
-	}
-
-	function printProductPayPal(skuQty, index) {
-		var productDetails = skuQty.split("&");
-		index = index + 1;
-		var sku = '';
-		var total = 0;
-		var price = 0;
-		var qty = 1;
-		var name = '';
-		for ( var j = 0; j < productDetails.length; j++ )  {
-			if(productDetails[j]=='') {
-				return null;
-			}
-			if(j==0) {//sku	
-
-				sku = productDetails[j];
-
-				//get product entity from sku
-				var product = getProductById(Catalog,sku);
-				if(!product) {//delete from cookie
-					removeItem(sku);
-					return null;
-				} 
-				name = product.name;
-				price = product.price;
-
-			}
-			if(j==1) {//qty
-				qty = productDetails[j];
-			}					
+			line = line + qtyLine + '<div class="col2">' + nameLine + '</div>' + '<div class="col3">' + priceLine + '</div></div><div class="clear-float"></div>';
 		}
 
-		var skuLine = '<input type="hidden" name="item_number_' + index + '" value="' + sku + '">';
-		var qtyLine  = '<input type="hidden" name="quantity_' + index + '" value="' +  qty + '">';
-		var nameLine = '<input type="hidden" name="item_name_' + index + '" value="' + name + '">';
-		var priceLine = '<input type="hidden" name="amount_' + index + '" value="' + price + '">';
-
-		line = skuLine + qtyLine +  nameLine + priceLine;	
-	
 		return line;
 	}
 
