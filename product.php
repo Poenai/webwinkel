@@ -92,7 +92,7 @@ $xml = simplexml_load_file("xml/producten.xml");
 					<strong>Beschikbaar:</strong> <span>{{if availability=='yes'}} Beschikbaar{{else}} Niet beschikbaar{{/if}}</span><br>
                                         {{/if}}								
 				</address>
-				<h4><strong>Prijs: €{formatedPrice}</strong></h4>
+				<h4><strong>Prijs: ${formatedPrice}</strong></h4>
 
 				<form class="form-inline">								
 					<label>Aantal:</label>
@@ -175,7 +175,7 @@ $xml = simplexml_load_file("xml/producten.xml");
             					<i class="icon-shopping-cart icon-black"></i>
             					<a id="open-cart" class="open noboxshadow dropdown-toggle" data-toggle="dropdown" href="#" style="box-shadow:none;color:FF8C00;">Mijn winkelwagen</a>
            		 			<span id="cartinfo">
-                  					<span id="cartqty">(0 items)</span>&nbsp;<span id="cartprice">€0.00</span>
+                  					<span id="cartqty">(0 items)</span>&nbsp;<span id="cartprice">ï¿½0.00</span>
             					</span>
             					<ul class="dropdown-menu minicart">
               						<li>
