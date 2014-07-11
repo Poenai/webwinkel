@@ -266,6 +266,7 @@
                         }
                     }
                     GET_LINK_TO_FACTUUR = "?" + URLComponenten.join("&");
+					GET_LINK_TO_FACTUUR += "&ID99=1";
                 }
 
 				var plaatje = '<img src="img/misc/ideal.png">';

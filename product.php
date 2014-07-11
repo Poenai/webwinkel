@@ -157,11 +157,6 @@ $xml = simplexml_load_file("xml/producten.xml");
 
 </head>
     
-
-
-
-
-
 <body>		
         <div class="container">
 
@@ -216,21 +211,6 @@ $xml = simplexml_load_file("xml/producten.xml");
                    
  		    <div class="row" id="productDetails"></div>
 
- 
-
-
-
-
-
-
-
-
-
-
-
-			
-
-
             <footer>
                 <div class="row">                   
                     <div class="span6">
@@ -282,7 +262,7 @@ $xml = simplexml_load_file("xml/producten.xml");
   </div>
 
 </form>
-<div id="sendingMessage" class="statusMessage"><p>Wodt verstuurd, een ogenblik geduld</p></div>
+<div id="sendingMessage" class="statusMessage"><p>Wordt verstuurd, een ogenblik geduld</p></div>
 <div id="successMessage" class="statusMessage"><p>Bedankt, we nemen spoedig contact met u op.</p></div>
 <div id="failureMessage" class="statusMessage"><p>Er is een probleem, probeer nog een keer.</p></div>
 <div id="incompleteMessage" class="statusMessage"><p>Vul alle velden in.</p></div>

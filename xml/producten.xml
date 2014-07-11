@@ -19,7 +19,7 @@
     <product>
         <id>2</id>
         <category>los</category>
-        <name>Rijles (vanaf 25)</name>
+        <name>Rijles (vanaf 25 stuks)</name>
         <brand>&amp;euro;26,- per les</brand>
         <seoName>pakket-25-lessen</seoName>
         <price>26.00</price>
@@ -31,4 +31,54 @@
         <description>Vanaf 25 lessen mogelijk</description>
         <BTWpercentage>21</BTWpercentage>
     </product>
+	<product>
+        <id>99</id>
+        <category>--</category> 
+        <name>Administratiekosten</name>
+        <brand>&amp;euro;5,95</brand>
+        <seoName>--</seoName> <!-- wordt op deze manier niet opgenomen in de webshop-->
+        <price>5.95</price>
+        <availability>no</availability>
+        <formatedPrice>&amp;euro;5.95</formatedPrice>
+        <featured>no</featured>
+        <highlight>1 les</highlight>
+        <image>shirt2.jpg</image>
+        <description>adminkosten</description>
+        <BTWpercentage>21</BTWpercentage>
+    </product>
+	
+	<!-- begin EXAMEN (een examen kent 2 BTW tarieven) -->
+	<product>
+        <id>3</id>
+        <category>los</category> 
+        <name>Examen CBR</name>
+        <brand>&amp;euro;5,95</brand>
+        <seoName>los-examen-cbr</seoName> <!-- wel opnemen-->
+        <price>90.90</price>
+        <availability>no</availability>
+        <formatedPrice>&amp;euro;90.90</formatedPrice>
+        <featured>yes</featured>
+        <highlight>1 examen</highlight>
+        <image>shirt2.jpg</image>
+        <description>examen</description>
+        <BTWpercentage>0</BTWpercentage>
+    </product>
+	
+	<product>
+        <id>3.1</id>
+        <category>--</category> 
+        <name>Examen benodigdheden</name>
+        <brand>&amp;euro;129,10</brand>
+        <seoName>--</seoName> <!-- niet opnemen-->
+        <price>129.10</price>
+        <availability>no</availability>
+        <formatedPrice>&amp;euro;129.10</formatedPrice>
+        <featured>no</featured>
+        <highlight>examen</highlight>
+        <image>shirt2.jpg</image>
+        <description>CBR examen</description>
+        <BTWpercentage>21</BTWpercentage>
+    </product>
+	<!-- eind EXAMEN -->
+	
 </producten>
