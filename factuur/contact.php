@@ -1,4 +1,4 @@
-<!doctype html>
+<?php /*<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -29,4 +29,48 @@
             });
 	});
     </script>
-</html>
+</html>*/?>
+<?php
+function ElfProef($getal)
+{
+    $value = 0;
+    if(strlen($getal) == 9)
+    {
+        for($i = 0;$i<8;$i++)
+        {
+            $value += $getal[$i] * (9-$i);
+        }
+        //laatste getal moet *-1
+        $value += $getal[8] * -1;
+    }
+    return $value%11==0;
+}
+
+function GetPerson()
+{
+    $personen = simplexml_load_file("../xml/contacts.xml");
+    foreach($personen->contact as $persoon)
+    {
+        if($persoon->BSN == $_POST["BSN"])
+        {
+            return $persoon;
+        }
+    }
+    return null;
+}
+
+
+
+if(array_key_exists ( 'BSN' , $_POST) && ElfProef($_POST['BSN']))
+{
+    $persoon = getPerson();
+    if($persoon!=null)
+    {
+        print json_encode($persoon);
+    }
+    else
+        http_response_code(204);
+
+}
+else
+    http_response_code(204);

@@ -32,8 +32,13 @@ $xml = simplexml_load_file("../xml/producten.xml");
 				<p id="contactTelefoon">Telefoon</p>
 			</address>
             <div id="dialog">
-                Contacten:<br/><br/>
-                <iframe id="myIframe" src=""></iframe>
+                <h2>Voer uw BSN gegevens in om uw adresgegevens op te halen</h2>
+                <br/>
+                <form action="" onsubmit="GetAdressGegevens(); return false;">
+                    <label for="BSN">BSN:</label>
+                    <input type="text" id="BSN" name="BSN" />
+                    <input type="submit" />
+                </form>
             </div>
 			<span></span>
 		</header>
@@ -339,6 +344,31 @@ $xml = simplexml_load_file("../xml/producten.xml");
     $('#dialogBtn').click(function(){
         $('#dialog').dialog('open');
     });
+
+    //vang het BSN nummer op
+    function GetAdressGegevens(form)
+    {
+        $.post( "contact.php", { BSN: $("#BSN").val()},
+            function( data, status ) {
+                //verzoek moet met sucses worden voltooid en mag niet leeg wezen
+                if(status != "success")
+                {
+                    alert("invoer was verkeert");
+                    return;
+                }
+                $("#contactNaam").text(data.naam);
+                $("#contactAdres").text(data.straat + " " + data.huisnummer);
+                $("#contactPlaats").text(data.postcode + " " + data.plaats);
+                $("#contactTelefoon").text(data.telefoon);
+                $('#dialog').dialog('close');
+
+            }, "json")
+            .fail(function()
+            {
+                alert("invoer was verkeert");
+            }
+            );
+    }
 
     </script>
 
