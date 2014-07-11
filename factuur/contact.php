@@ -24,7 +24,7 @@
         $.get('xml/contacts.xml', function(xml){
 		var contacts = $.xml2json(xml);
 
-            $.each(contacts.contact, function(i, item) {
+            $.each(contact.contact, function(i, item) {
                 $("#mainContent").append('<div class="panel panel-default"><div class="panel-body" id="contactInfo" onclick="setContact(this.naam + this.straat + this.huisnummer + this.postcode + this.plaats + this.telefoon)" style="padding:5px">'+this.naam+'<br/>'+this.straat+' '+this.huisnummer+'<br/>'+this.postcode+' '+this.plaats+'<br/>'+this.telefoon+'</div></div>');
             });
 	});

@@ -332,7 +332,7 @@ $xml = simplexml_load_file("../xml/producten.xml");
         height: 600,
         width:335,
         open: function(ev, ui){
-            $('#myIframe').attr('src','contacts.html');
+            $('#myIframe').attr('src','contact.php');
         }
     });
 
