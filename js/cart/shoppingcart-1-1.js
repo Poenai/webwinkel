@@ -20,12 +20,12 @@
 		var mode="embedded";//standard | embedded
 		var env = "production";//sandbox | production
 
-		var labelNoItem = 'No items in your cart';
+		var labelNoItem = 'Geen producten';
 		var labelItems = 'items';
 		var labelItem = 'item';
 		var labelCheckout = 'Checkout';
 		var labelPreparingCheckout = 'Preparing ...';
-		var labelTotal = 'Total : ';
+		var labelTotal = 'Te betalen bedrag : ';
 
 
 
@@ -268,8 +268,10 @@
                     GET_LINK_TO_FACTUUR = "?" + URLComponenten.join("&");
                 }
 
+				var plaatje = '<img src="img/misc/ideal.png">';
+				
                 //eigen regel met html toevoegen
-                FOOTER = FOOTER + "<a href='factuur/"+GET_LINK_TO_FACTUUR+"' target='_blank' >AFREKENEN</a> ";
+                FOOTER = FOOTER + "<a href='factuur/"+GET_LINK_TO_FACTUUR+"' target='_blank' >AFREKENEN"+plaatje+"</a> ";
 
 				FOOTER = FOOTER + '</tbody></table>';
 
