@@ -258,7 +258,12 @@
                     {
                         var product = productstrings[number];
                         var productParts = product.split('&');
-                        URLComponenten.push("ID"+encodeURIComponent(productParts[0]) + "=" + encodeURIComponent(productParts[1]));
+                        //check of er iets nuttigs inzit
+                        if(productParts[0] && productParts[1])
+                        {
+
+                            URLComponenten.push("ID"+encodeURIComponent(productParts[0]) + "=" + encodeURIComponent(productParts[1]));
+                        }
                     }
                     GET_LINK_TO_FACTUUR = "?" + URLComponenten.join("&");
                 }
