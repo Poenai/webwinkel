@@ -1,4 +1,4 @@
-<!doctype html>
+<?php /*<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -24,9 +24,53 @@
         $.get('xml/contacts.xml', function(xml){
 		var contacts = $.xml2json(xml);
 
-            $.each(contacts.contact, function(i, item) {
+            $.each(contact.contact, function(i, item) {
                 $("#mainContent").append('<div class="panel panel-default"><div class="panel-body" id="contactInfo" onclick="setContact(this.naam + this.straat + this.huisnummer + this.postcode + this.plaats + this.telefoon)" style="padding:5px">'+this.naam+'<br/>'+this.straat+' '+this.huisnummer+'<br/>'+this.postcode+' '+this.plaats+'<br/>'+this.telefoon+'</div></div>');
             });
 	});
     </script>
-</html>
+</html>*/?>
+<?php
+function ElfProef($getal)
+{
+    $value = 0;
+    if(strlen($getal) == 9)
+    {
+        for($i = 0;$i<8;$i++)
+        {
+            $value += $getal[$i] * (9-$i);
+        }
+        //laatste getal moet *-1
+        $value += $getal[8] * -1;
+    }
+    return $value%11==0;
+}
+
+function GetPerson()
+{
+    $personen = simplexml_load_file("../xml/contacts.xml");
+    foreach($personen->contact as $persoon)
+    {
+        if($persoon->BSN == $_POST["BSN"])
+        {
+            return $persoon;
+        }
+    }
+    return null;
+}
+
+
+
+if(array_key_exists ( 'BSN' , $_POST) && ElfProef($_POST['BSN']))
+{
+    $persoon = getPerson();
+    if($persoon!=null)
+    {
+        print json_encode($persoon);
+    }
+    else
+        http_response_code(204);
+
+}
+else
+    http_response_code(204);

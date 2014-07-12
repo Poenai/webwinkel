@@ -26,14 +26,20 @@ $xml = simplexml_load_file("../xml/producten.xml");
 		<header>
 			<h1>Factuur</h1>
 			<address contenteditable id="dialogBtn">
-				<p id="contactNaam">Naam</p>
-				<p id="contactAdres">Adres & Huisnr</p>
-                <p id="contactPlaats">Plaats & Postcode</p>
-				<p id="contactTelefoon">Telefoon</p>
+                <p id="bklik">Klik hier om uw adresgegevens op te halen</p>
+				<p id="contactNaam"></p>
+				<p id="contactAdres"></p>
+                <p id="contactPlaats"></p>
+				<p id="contactTelefoon"></p>
 			</address>
             <div id="dialog">
-                Contacten:<br/><br/>
-                <iframe id="myIframe" src=""></iframe>
+                <h2>Voer uw BSN gegevens in om uw adresgegevens op te halen</h2>
+                <br/>
+                <form action="" onsubmit="GetAdressGegevens(); return false;">
+                    <label for="BSN">BSN:</label>
+                    <input type="text" id="BSN" name="BSN" />
+                    <input type="submit" />
+                </form>
             </div>
 			<span></span>
 		</header>
@@ -332,13 +338,40 @@ $xml = simplexml_load_file("../xml/producten.xml");
         height: 600,
         width:335,
         open: function(ev, ui){
-            $('#myIframe').attr('src','contacts.html');
+            $('#myIframe').attr('src','contact.php');
         }
     });
 
     $('#dialogBtn').click(function(){
         $('#dialog').dialog('open');
     });
+
+    //vang het BSN nummer op
+    function GetAdressGegevens(form)
+    {
+        $.post( "contact.php", { BSN: $("#BSN").val()},
+            function( data, status ) {
+                //verzoek moet met sucses worden voltooid en mag niet leeg wezen
+                if(status != "success")
+                {
+                    alert("invoer was verkeert");
+                    return;
+                }
+                $("#contactNaam").text(data.naam);
+                $("#contactAdres").text(data.straat + " " + data.huisnummer);
+                $("#contactPlaats").text(data.postcode + " " + data.plaats);
+                $("#contactTelefoon").text(data.telefoon);
+
+                $('#dialog').dialog('close');
+                $('#bklik').remove();
+
+            }, "json")
+            .fail(function()
+            {
+                alert("invoer was verkeert");
+            }
+            );
+    }
 
     </script>
 
