@@ -160,6 +160,10 @@ function getShipping(store, code) {
 
 function addProductToCart(catalog, productId, quantity, property) {
 	var product = getProductById(catalog, productId);
+    //er wordt altijd het minimaale toegevoegd
+    //hier is het belangerijk dat het een getal is anders gebeuren er rare dingen
+    if(product.minimal && parseInt(product.minimal)>parseInt(quantity))
+        quantity = parseInt(product.minimal);
 	if(product==null) {
 		alert('Product id ' + productId + ' does not exist');
 	}
