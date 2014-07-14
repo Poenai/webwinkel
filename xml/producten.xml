@@ -30,6 +30,7 @@
         <image>shirt2.jpg</image>
         <description>Vanaf 25 lessen mogelijk</description>
         <BTWpercentage>21</BTWpercentage>
+        <minimal>25</minimal>
     </product>
 	<product>
         <id>99</id>
@@ -62,6 +63,8 @@
         <image>shirt2.jpg</image>
         <description>examen</description>
         <BTWpercentage>0</BTWpercentage>
+        <minimal>1</minimal>
+        <samengesteldePrijs>220.00</samengesteldePrijs>
     </product>
 	
 	<product>

@@ -238,9 +238,6 @@
 				var FOOTER_HEADER= '';
 				var MESSAGE_BLOCK = '<span id="message">&nbsp;</span>';
 				var WAIT_BLOCK = '';
-				var PP_MESSAGE_BLOCK = '<img src="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif" border="0" width="110" alt="Checkout with paypal">';
-				var PP_BUTTON_BLOCK = '<a href="javascript:invokePayPal();" id="paypal-checkout"><img border="0" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="right"></a>';
-
 
 				//globalproducts = globalproducts + FOOTER_HEADER;
 
@@ -461,7 +458,7 @@
 					return null;
 				}
 				name = product.name;
-				price = product.price;
+				price = product.samengesteldePrijs || product.price;
 			}
 			if(j==1) {//qty
 				if(productDetails[j]=='0'){
@@ -622,7 +619,9 @@
 				
 		}
 
-		return parseFloat(qty * product.price);
+        var price = product.samengesteldePrijs || product.price;
+
+		return parseFloat(qty * price);
 	}
 
 	function getQuantity(skuQty) {
