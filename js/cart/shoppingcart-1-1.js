@@ -321,7 +321,7 @@
 					var sku = $(this).attr("productId");
 					var qty = '#quantity-productId-'+ sku;
 					var prop = '#property-productId-'+ sku;
-					var quantity = $(qty).val();
+					var quantity = parseInt( $('#quataty_product').val() ) || $(qty).val();
 					var property=null;
 					if(prop) {
 						property = $(prop).val();
@@ -750,8 +750,8 @@
 							}
 						}
 
-
-						q = parseInt(q) + 1;
+                        //je moet rekening houden met het aantal en niet zomaar 1 er bij optellen
+						q = parseInt(q) + qty;
 						found = true;
 					}
 					if(i==0) {

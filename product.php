@@ -96,9 +96,9 @@ $xml = simplexml_load_file("xml/producten.xml");
 
 				<form class="form-inline">								
 					<label>Aantal:</label>
-					<select name="aantal">
+					<select name="aantal" id="quataty_product">
                         {{each(keuze) keuzes}}
-                            <option value="{keuzes[keuze]}" >${keuzes[keuze]}</option>
+                            <option value="${keuzes[keuze]}" >${keuzes[keuze]}</option>
                         {{/each}}
                     </select>
 					<button class="addToCart btn-success" type="button" productid="${id}">Zet in winkelwagen</button>
