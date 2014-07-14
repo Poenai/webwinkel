@@ -96,8 +96,13 @@ $xml = simplexml_load_file("xml/producten.xml");
 
 				<form class="form-inline">								
 					<label>Aantal:</label>
-					<input class="span1" placeholder="1" type="text" id="quantity-productId-${id}">
+					<select name="aantal">
+                        {{each(keuze) keuzes}}
+                            <option value="{keuzes[keuze]}" >${keuzes[keuze]}</option>
+                        {{/each}}
+                    </select>
 					<button class="addToCart btn-success" type="button" productid="${id}">Zet in winkelwagen</button>
+
 				</form>
 
 				<ul class="social">
@@ -286,6 +291,14 @@ $xml = simplexml_load_file("xml/producten.xml");
     var product = getProduct(Catalog, page);
 
     if(product) {
+
+        product.keuzes = [];
+        for(var i = product.minimal;i<=product.minimal*2;i++)
+        {
+            product.keuzes.push(i);
+        }
+
+
         //$( "#pageTemplate" ).tmpl( categoryNode[0] )
         //	.appendTo( "#pageText" );
         $(document).attr('title', product.name);
