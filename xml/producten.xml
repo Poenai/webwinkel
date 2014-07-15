@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <producten>
+<!-- BEGIN producten WEL TONEN in webwinkel-->
     <product>
         <id>1</id>
         <category>los</category>
@@ -16,39 +17,23 @@
         <BTWpercentage>21</BTWpercentage>
 		<minimal>1</minimal>
     </product>
-    <product>
-        <id>2</id>
-        <category>los</category>
-        <name>Rijles (vanaf 25 stuks)</name>
-        <brand>&amp;euro;26,- per les</brand>
-        <seoName>pakket-25-lessen</seoName>
-        <price>26.00</price>
-        <availability>yes</availability>
-        <formatedPrice>&amp;euro;26,-</formatedPrice>
-        <featured>yes</featured>
-        <highlight>1 les</highlight>
-        <image>shirt2.jpg</image>
-        <description>Vanaf 25 lessen mogelijk</description>
-        <BTWpercentage>21</BTWpercentage>
-        <minimal>25</minimal>
-    </product>
 	<product>
-        <id>99</id>
-        <category>--</category> 
-        <name>Administratiekosten</name>
-        <brand>&amp;euro;5,95</brand>
-        <seoName>--</seoName> <!-- wordt op deze manier niet opgenomen in de webshop-->
-        <price>5.95</price>
-        <availability>no</availability>
-        <formatedPrice>&amp;euro;5.95</formatedPrice>
-        <featured>no</featured>
-        <highlight>1 les</highlight>
+        <id>2</id>
+        <category>pakket</category> 
+        <name>Pakket20</name>
+        <brand>20 rijlessen</brand>
+        <seoName>pakket-20-lessen</seoName> <!-- wordt op deze manier niet opgenomen in de webshop-->
+        <price>530.00</price>
+        <availability>yes</availability>
+        <formatedPrice>&amp;euro;530.00</formatedPrice>
+        <featured>yes</featured>
+        <highlight>20 stuks les</highlight>
         <image>shirt2.jpg</image>
-        <description>adminkosten</description>
+        <description>20 rijlessen van 60 min</description>
         <BTWpercentage>21</BTWpercentage>
+		<minimal>20</minimal>
+		<IDvoorFactuur>80</IDvoorFactuur>
     </product>
-	
-	<!-- begin EXAMEN (een examen kent 2 BTW tarieven) -->
 	<product>
         <id>3</id>
         <category>los</category> 
@@ -66,13 +51,47 @@
         <minimal>1</minimal>
         <samengesteldePrijs>220.00</samengesteldePrijs>
     </product>
+<!-- EINDE producten WEL TONEN in webwinkel-->	
 	
+
+<!-- BEGIN product NIET TONEN in de webwinkel, alleen bedoeld voor factuur APP-->	
+    <product>
+        <id>80</id>
+        <category>--</category>
+        <name>Rijles </name>
+        <brand>&amp;euro;26.50 per les</brand>
+        <seoName>--</seoName>
+        <price>26.50</price>
+        <availability>yes</availability>
+        <formatedPrice>&amp;euro;26.50</formatedPrice>
+        <featured>yes</featured>
+        <highlight>1 les</highlight>
+        <image>shirt2.jpg</image>
+        <description>1 rijles</description>
+        <BTWpercentage>21</BTWpercentage>
+        <minimal>25</minimal>
+    </product>
+	<product>
+        <id>99</id>
+        <category>--</category> <!-- leeg laten om niet op te nemen--> 
+        <name>Administratiekosten</name>
+        <brand>&amp;euro;5,95</brand>
+        <seoName>--</seoName> <!-- leeg laten om niet op te nemen-->
+        <price>5.95</price>
+        <availability>no</availability>
+        <formatedPrice>&amp;euro;5.95</formatedPrice>
+        <featured>no</featured>
+        <highlight>1 les</highlight>
+        <image>shirt2.jpg</image>
+        <description>adminkosten</description>
+        <BTWpercentage>21</BTWpercentage>
+    </product>	
 	<product>
         <id>3.1</id>
         <category>--</category> 
         <name>Examen benodigdheden</name>
         <brand>&amp;euro;129,10</brand>
-        <seoName>--</seoName> <!-- niet opnemen-->
+        <seoName>--</seoName> 
         <price>129.10</price>
         <availability>no</availability>
         <formatedPrice>&amp;euro;129.10</formatedPrice>
@@ -82,6 +101,5 @@
         <description>CBR examen</description>
         <BTWpercentage>21</BTWpercentage>
     </product>
-	<!-- eind EXAMEN -->
-	
+<!-- EINDE NIET TONEN producten in webwinkel-->
 </producten>
