@@ -8,7 +8,6 @@ $xml = simplexml_load_file("../xml/producten.xml");
 	<head>
 		<meta charset="utf-8">
 		<title>Factuur</title>
-		<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/daterangepicker.css" />
