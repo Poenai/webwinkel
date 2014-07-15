@@ -162,7 +162,8 @@ function addProductToCart(catalog, productId, quantity, property) {
 	var product = getProductById(catalog, productId);
     //er wordt altijd het minimaale toegevoegd
     //hier is het belangerijk dat het een getal is anders gebeuren er rare dingen
-    if(product.minimal && parseInt(product.minimal)>parseInt(quantity))
+    //als het niet numeriec gemaakt kan worden wordt er ook het minimum ingezet
+    if(product.minimal && parseInt(product.minimal)>parseInt(quantity) || isNaN(quantity))
         quantity = parseInt(product.minimal);
 	if(product==null) {
 		alert('Product id ' + productId + ' does not exist');
