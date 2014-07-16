@@ -31,8 +31,14 @@
         <image>shirt2.jpg</image>
         <description>20 rijlessen van 60 min</description>
         <BTWpercentage>21</BTWpercentage>
-		<minimal>20</minimal>
-		<IDvoorFactuur>80</IDvoorFactuur>
+		<minimal>1</minimal>
+        <onderdelen>
+            <!--lessen-->
+            <onderdeel>
+                <id>80</id>
+                <aantal>20</aantal>
+            </onderdeel>
+        </onderdelen>
     </product>
 	<product>
         <id>3</id>
