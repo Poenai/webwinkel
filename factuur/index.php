@@ -233,6 +233,7 @@ $xml = simplexml_load_file("../xml/producten.xml");
     var producten = <?= json_encode($xml); ?>;
 
     var counter = 0;
+    //get is leeg dus plaats maar alle artikelen
     if(jQuery.isEmptyObject($_GET)) {
         $.each(producten.product, function(i, item) {
             var id = this.id;
@@ -266,7 +267,25 @@ $xml = simplexml_load_file("../xml/producten.xml");
             var idclean = id.replace('.1','\\.1')
             if(typeof $_GET['ID'+idtemp] != 'undefined')
             {
-                if(id.toString().indexOf('.') !== -1){
+                if(this.category && this.category == 'pakket' && this.onderdelen)
+                {
+                    //als er maar een artikel in het pakket zit is het direct bereikbaar
+                    if(this.onderdelen.onderdeel.id)
+                    {
+                        $_GET['ID'+this.onderdelen.onderdeel.id] = $_GET['ID'+this.onderdelen.onderdeel.id] || 0;
+                        $_GET['ID'+this.onderdelen.onderdeel.id] += this.onderdelen.onderdeel.aantal * $_GET['ID'+idtemp];
+                    }
+                    else
+                    {
+                        $.each(this.onderdelen.onderdeel, function(j, Item){
+                            //check of er wel iets inzit
+                            $_GET['ID'+this.id] = $_GET['ID'+this.id] || 0;
+                            $_GET['ID'+this.id] += this.aantal * $_GET['ID'+idtemp];
+                        });
+                    }
+                }
+
+                else if(id.toString().indexOf('.') !== -1){
                     $(".inventory > tbody:last").append('<tr id="row'+id+'"></td><td><span>'+this.name+'</span></td><td style="text-align:right;"><span data-prefix>&euro;</span><span id="bruto'+id+'">'+roundDecimal(parseFloat(this.price))+'</span></td><td style="display:none"><input type="text" class="virtualKeyboard" style="margin-top:-2px;width:50px;text-align:center;" maxlength="2" id="aantal'+id+'" onfocusout="fillZero('+id+','+counter+')" onkeyup="this.value=this.value.replace(/[^0-9]+/g, \'\');calcPrice('+id+','+counter+')" value="'+$_GET['ID'+idtemp]+'" '+disabled+' /></span></td><td><span data-prefix>&euro;</span><span id="netto'+id+'">'+(roundDecimal((parseFloat(this.price) / (100 + parseInt(this.BTWpercentage))) * 100))+'</span></td><td style="text-align:left;"><span>'+this.BTWpercentage+'%</span></td><td><span data-prefix>&euro;</span><span id="brutototaal'+id+'">0.00</span></td><td><span data-prefix>&euro;</span><span id="nettototaal'+id+'">0.00</span></td></tr>');
                     $("#td-id-"+idtemp).attr("rowspan","2");
                     $("#td-id-"+idtemp).attr("style","vertical-align:middle;text-align:center;");
@@ -280,7 +299,6 @@ $xml = simplexml_load_file("../xml/producten.xml");
 
                 window.info[counter] = [];
                 window.info[counter]['Naam'] = this.name;
-                console.log(window.info[counter]);
                 window.info[counter]['Brutotarief'] = parseFloat(this.price);
                 window.info[counter]['BTWpercentage'] = this.BTWpercentage;
                 window.info[counter]['SubBruto'] = 0.00;
