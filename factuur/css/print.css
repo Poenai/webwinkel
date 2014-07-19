@@ -1,0 +1,8 @@
+#controls
+{
+    display: none;
+}
+.notifyjs-hidable > *
+{
+    display: none;
+}

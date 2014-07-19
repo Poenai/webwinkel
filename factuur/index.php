@@ -12,6 +12,7 @@ $xml = simplexml_load_file("../xml/producten.xml");
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/daterangepicker.css" />
         <link rel="stylesheet" href="css/keyboard.css" />
+        <link rel="stylesheet" href="css/print.css" media="print"/>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <script src="https://jquery-ui.googlecode.com/svn-history/r3982/trunk/ui/i18n/jquery.ui.datepicker-nl.js"></script>
@@ -19,9 +20,58 @@ $xml = simplexml_load_file("../xml/producten.xml");
         <script src="js/jquery.daterangepicker.js"></script>
         <script src="js/jquery.keyboard.min.js"></script>
         <script src="js/jquery.keyboard.extension-all.min.js"></script>
+        <script src="js/notify.min.js"></script>
 
     </head>
 	<body>
+    <style>
+        #controls
+        {
+            background:#eee;
+            border:1px solid #666;
+            height:40px;
+            left:0; position:
+            fixed; width:100%;
+            top:0;
+            z-index: 9999;
+        }
+        .control
+        {
+            display: inline-block;
+            line-height:40px;
+            margin: 0 auto;
+            width:140px;
+            text-align:center;
+        }
+        .control:hover
+        {
+            background: #cbcbcb;
+        }
+        .controlBox
+        {
+            display: block;
+            width: 440px;
+            margin:0 auto;
+        }
+        .controlBox .control:nth-child(2)
+        {
+            border-left: solid #000000 2px;
+            border-right: solid #000000 2px;
+        }
+    </style>
+        <div id="controls">
+            <div class="controlBox">
+                <div class="control">
+                    betaal
+                </div>
+                <div class="control">
+                    druk af
+                </div>
+                <div class="control">
+                    verstuur per mail
+                </div>
+            </div>
+        </div>
 		<header>
 			<h1>Factuur</h1>
 			<address contenteditable id="dialogBtn">
@@ -371,6 +421,33 @@ $xml = simplexml_load_file("../xml/producten.xml");
             }
             );
     }
+
+    //notifycaties
+    $.notify.defaults({ className: "info" });
+    $(document).ready(function(){
+        $('#dialogBtn').notify("Selecteer uw NAW gegevens hier.", {autoHideDelay:9999999999});
+    });
+
+    //control knoppen
+    //betaalen
+    var BetaalActie = function()
+    {
+        console.log('betaal');
+    };
+    var Afdrukken = function()
+    {
+        //verberg nog mogelijke meldingen
+        $('.notifyjs-wrapper').remove();
+        window.print();
+    };
+    var Verstuur = function()
+    {
+
+    };
+
+    $('.controlBox .control:nth-child(1)').click(BetaalActie);
+    $('.controlBox .control:nth-child(2)').click(Afdrukken);
+    $('.controlBox .control:nth-child(3)').click(Verstuur);
 
     </script>
 
