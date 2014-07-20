@@ -31,8 +31,14 @@
         <image>shirt2.jpg</image>
         <description>20 rijlessen van 60 min</description>
         <BTWpercentage>21</BTWpercentage>
-		<minimal>20</minimal>
-		<IDvoorFactuur>80</IDvoorFactuur>
+		<minimal>1</minimal>
+        <onderdelen>
+            <!--lessen-->
+            <onderdeel>
+                <id>80</id>
+                <aantal>20</aantal>
+            </onderdeel>
+        </onderdelen>
     </product>
 	<product>
         <id>3</id>
@@ -54,7 +60,24 @@
 <!-- EINDE producten WEL TONEN in webwinkel-->	
 	
 
-<!-- BEGIN product NIET TONEN in de webwinkel, alleen bedoeld voor factuur APP-->	
+<!-- BEGIN product NIET TONEN in de webwinkel, alleen bedoeld voor factuur APP-->
+
+    <!--let op belangerijk dat alle id's op volgorde blijven staan ander gaat het mis in de bestaande javascript met samengevoegde producten-->
+    <product>
+        <id>3.1</id>
+        <category>--</category>
+        <name>Examen benodigdheden</name>
+        <brand>&amp;euro;129,10</brand>
+        <seoName>--</seoName>
+        <price>129.10</price>
+        <availability>no</availability>
+        <formatedPrice>&amp;euro;129.10</formatedPrice>
+        <featured>no</featured>
+        <highlight>examen</highlight>
+        <image>shirt2.jpg</image>
+        <description>CBR examen</description>
+        <BTWpercentage>21</BTWpercentage>
+    </product>
     <product>
         <id>80</id>
         <category>--</category>
@@ -73,7 +96,7 @@
     </product>
 	<product>
         <id>99</id>
-        <category>--</category> <!-- leeg laten om niet op te nemen--> 
+        <category>--</category> <!-- leeg laten om niet op te nemen-->
         <name>Administratiekosten</name>
         <brand>&amp;euro;5,95</brand>
         <seoName>--</seoName> <!-- leeg laten om niet op te nemen-->
@@ -85,21 +108,7 @@
         <image>shirt2.jpg</image>
         <description>adminkosten</description>
         <BTWpercentage>21</BTWpercentage>
-    </product>	
-	<product>
-        <id>3.1</id>
-        <category>--</category> 
-        <name>Examen benodigdheden</name>
-        <brand>&amp;euro;129,10</brand>
-        <seoName>--</seoName> 
-        <price>129.10</price>
-        <availability>no</availability>
-        <formatedPrice>&amp;euro;129.10</formatedPrice>
-        <featured>no</featured>
-        <highlight>examen</highlight>
-        <image>shirt2.jpg</image>
-        <description>CBR examen</description>
-        <BTWpercentage>21</BTWpercentage>
     </product>
+
 <!-- EINDE NIET TONEN producten in webwinkel-->
 </producten>
