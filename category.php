@@ -1,5 +1,5 @@
 <?php
-$xml = simplexml_load_file("xml/producten.xml");
+require_once "PHPLib/producten.php";
 ?>
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -37,7 +37,7 @@ $xml = simplexml_load_file("xml/producten.xml");
 <!-- json data -->
 <script src="js/store.js" type="text/javascript"></script>
 <script>
-    var Catalog = <?= json_encode($xml); ?>.product;
+    var Catalog = <?= Producten::GetAllProducts(true); ?>.product;
 </script>
 
 <!-- templates -->
@@ -143,7 +143,7 @@ $xml = simplexml_load_file("xml/producten.xml");
             					<i class="icon-shopping-cart icon-black"></i>
             					<a id="open-cart" class="open noboxshadow dropdown-toggle" data-toggle="dropdown" href="#" style="box-shadow:none;color:FF8C00;">Mijn mandje</a>
            		 			<span id="cartinfo">
-                  					<span id="cartqty">(0 items)</span>&nbsp;<span id="cartprice">€0.00</span>
+                  					<span id="cartqty">(0 items)</span>&nbsp;<span id="cartprice">ï¿½0.00</span>
             					</span>
             					<ul class="dropdown-menu minicart">
               						<li>
