@@ -7,12 +7,14 @@
  */
 class Producten {
     //private fields
-    private static  $_fileName = "../xml/producten.xml";
+    private static  $_fileName = "";
     private static $_products;
 
     //public methods
     public static function Initialize()
     {
+        //zorgt ervoor als de require_once uit andere mappen komt dat het path altijd juist blijft
+        self::$_fileName = dirname(__FILE__)."/../xml/producten.xml";
         self::$_products = simplexml_load_file(self::$_fileName);
     }
 
