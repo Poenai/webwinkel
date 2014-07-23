@@ -40,13 +40,15 @@
             </onderdeel>
         </onderdelen>
     </product>
-	<product>
+
+    <!-- begin examen -->
+    <product>
         <id>3</id>
-        <category>los</category> 
+        <category>los</category>
         <name>Examen CBR</name>
         <brand>&amp;euro;5,95</brand>
         <seoName>los-examen-cbr</seoName> <!-- wel opnemen-->
-        <price>90.90</price>
+        <price>90.90</price>                                        <!-- 0% BTW -->
         <availability>no</availability>
         <formatedPrice>&amp;euro;220.00</formatedPrice>
         <featured>yes</featured>
@@ -57,12 +59,6 @@
         <minimal>1</minimal>
         <samengesteldePrijs>220.00</samengesteldePrijs>
     </product>
-<!-- EINDE producten WEL TONEN in webwinkel-->	
-	
-
-<!-- BEGIN product NIET TONEN in de webwinkel, alleen bedoeld voor factuur APP-->
-
-    <!--let op belangerijk dat alle id's op volgorde blijven staan ander gaat het mis in de bestaande javascript met samengevoegde producten-->
     <product>
         <id>3.1</id>
         <category>--</category>
@@ -76,10 +72,139 @@
         <highlight>examen</highlight>
         <image>shirt2.jpg</image>
         <description>CBR examen</description>
-        <BTWpercentage>21</BTWpercentage>
+        <BTWpercentage>21</BTWpercentage>                           <!-- 21% BTW -->
     </product>
+    <!-- einde examen -->
+
+    <!-- Begin 1e pakket -->
     <product>
-        <id>80</id>
+        <id>21</id>
+        <category>pakket</category>
+        <name>PakketBasis15</name>
+        <brand>15 rijlessen</brand>
+        <seoName>pakket-15-lessen</seoName>
+        <price>300.00</price>
+        <availability>yes</availability>
+        <formatedPrice>&amp;euro;300.00</formatedPrice>
+        <featured>yes</featured>
+        <highlight>15 stuks les</highlight>
+        <image>shirt2.jpg</image>
+        <description>15 rijlessen van 60 min ZONDER examen</description>
+        <BTWpercentage>21</BTWpercentage>
+        <minimal>1</minimal>
+        <onderdelen>
+            <!--lessen-->
+            <onderdeel>
+                <id>80</id>
+                <aantal>15</aantal>
+            </onderdeel>
+        </onderdelen>
+    </product>
+    <!-- Einde 1e pakket-->
+
+    <!-- Begin 2e pakket -->
+    <product>
+        <id>22</id>
+        <category>pakket</category>
+        <name>PakketReparatie10</name>
+        <brand>10 rijlessen + herexamen</brand>
+        <seoName>pakket-10-lessen</seoName>
+        <price>400.00</price>
+        <availability>yes</availability>
+        <formatedPrice>&amp;euro;400.00</formatedPrice>
+        <featured>yes</featured>
+        <highlight>10 stuks les</highlight>
+        <image>shirt2.jpg</image>
+        <description>10 rijlessen van 60 min + Examen</description>
+        <BTWpercentage>21</BTWpercentage>
+        <minimal>1</minimal>
+        <onderdelen>
+            <!--lessen-->
+            <onderdeel>
+                <id>80</id>
+                <aantal>15</aantal>
+            </onderdeel>
+            <!-- examen -->
+            <onderdeel>
+                <id>3</id>
+                <aantal>1</aantal>
+            </onderdeel>
+        </onderdelen>
+    </product>
+    <!-- Einde 2e pakket -->
+
+    <!-- Begin 3e pakket -->
+    <product>
+        <id>23</id>
+        <category>pakket</category>
+        <name>PakketAll-In-One35</name>
+        <brand>35 rijlessen + examen</brand>
+        <seoName>pakket-35-lessen</seoName>
+        <price>1000.00</price>
+        <availability>yes</availability>
+        <formatedPrice>&amp;euro;1000.00</formatedPrice>
+        <featured>yes</featured>
+        <highlight>35 stuks les</highlight>
+        <image>shirt2.jpg</image>
+        <description>35 rijlessen van 60 min + examen</description>
+        <BTWpercentage>21</BTWpercentage>
+        <minimal>1</minimal>
+        <onderdelen>
+            <!--lessen-->
+            <onderdeel>
+                <id>80</id>
+                <aantal>35</aantal>
+            </onderdeel>
+            <!-- examen -->
+            <onderdeel>
+                <id>3</id>
+                <aantal>1</aantal>
+            </onderdeel>
+        </onderdelen>
+    </product>
+    <!-- Einde 3e pakket -->
+
+    <!-- Begin 4e pakket -->
+    <product>
+        <id>24</id>
+        <category>pakket</category>
+        <name>PakketAll-In-One35</name>
+        <brand>35 rijlessen + examen</brand>
+        <seoName>pakket-35-lessen</seoName>
+        <price>1000.00</price>
+        <availability>yes</availability>
+        <formatedPrice>&amp;euro;1000.00</formatedPrice>
+        <featured>yes</featured>
+        <highlight>35 stuks les</highlight>
+        <image>shirt2.jpg</image>
+        <description>35 rijlessen van 60 min + examen</description>
+        <BTWpercentage>21</BTWpercentage>
+        <minimal>1</minimal>
+        <onderdelen>
+            <!-- normale lessen-->
+            <onderdeel>
+                <id>80</id>
+                <aantal>25</aantal>
+            </onderdeel>
+            <!-- simulatie lessen -->
+            <onderdeel>
+                <id>81</id>
+                <aantal>25</aantal>
+            </onderdeel>
+            <!-- examen -->
+            <onderdeel>
+                <id>3</id>
+                <aantal>1</aantal>
+            </onderdeel>
+        </onderdelen>
+    </product>
+    <!-- Einde 4e pakket -->
+
+
+
+    <!-- Begin losse producten -->
+    <product>
+        <id>80</id>                                                 <!-- Wordt niet verkocht als los product in de webwinkel, maar vormt een onderdeel van de pakketten -->
         <category>--</category>
         <name>Rijles </name>
         <brand>&amp;euro;26.50 per les</brand>
@@ -94,12 +219,30 @@
         <BTWpercentage>21</BTWpercentage>
         <minimal>25</minimal>
     </product>
-	<product>
-        <id>99</id>
-        <category>--</category> <!-- leeg laten om niet op te nemen-->
+
+    <product>
+        <id>81</id>                                                 <!-- Wordt niet verkocht als los product in de webwinkel, maar vormt een onderdeel van de pakketten -->
+        <category>--</category>
+        <name>Simulatieles </name>
+        <brand>&amp;euro;0.0 per les</brand>
+        <seoName>--</seoName>
+        <price>0.0</price>
+        <availability>yes</availability>
+        <formatedPrice>&amp;euro;0.0</formatedPrice>
+        <featured>yes</featured>
+        <highlight>1 les</highlight>
+        <image>shirt2.jpg</image>
+        <description>1 rijles</description>
+        <BTWpercentage>21</BTWpercentage>
+        <minimal>25</minimal>
+    </product>
+
+    <product>
+        <id>99</id>                                                 <!-- Standaardkosten, wordt altijd meegegeven, misschien in een Sessie plaatsen ipv URL, zodat men dat niet handmatig weg kan halen als alsnog de factuur betalen -->
+        <category>--</category>                                     <!-- leeg laten om onzichtebaar te zijn in de webwinkel-->
         <name>Administratiekosten</name>
         <brand>&amp;euro;5,95</brand>
-        <seoName>--</seoName> <!-- leeg laten om niet op te nemen-->
+        <seoName>--</seoName>                                       <!-- leeg laten om onzichtebaar te zijn in de webwinkel-->
         <price>5.95</price>
         <availability>no</availability>
         <formatedPrice>&amp;euro;5.95</formatedPrice>
@@ -110,5 +253,5 @@
         <BTWpercentage>21</BTWpercentage>
     </product>
 
-<!-- EINDE NIET TONEN producten in webwinkel-->
+    <!-- Einde losse producten -->
 </producten>
