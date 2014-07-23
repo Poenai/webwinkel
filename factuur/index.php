@@ -209,13 +209,13 @@ $xml = simplexml_load_file("../xml/producten.xml");
             if (i >= 0) {
                 if(this['BTWpercentage'] == 21)
                 {
-                    totaalBtwHoog += parseFloat(this['SubBruto']);
-                    totaalNetto += parseFloat(this['SubNetto']);
+                    totaalBtwHoog += parseFloat(this['SubBruto']) || 0;
+                    totaalNetto += parseFloat(this['SubNetto']) || 0;
                 }
                 else {
-                    totaalBtwLaag += parseFloat(this['SubBruto']);
+                    totaalBtwLaag += parseFloat(this['SubBruto']) || 0;
                 }
-                totaalBruto += parseFloat(this['SubBruto']);
+                totaalBruto += parseFloat(this['SubBruto']) || 0;
             }
         });
 
@@ -281,17 +281,50 @@ $xml = simplexml_load_file("../xml/producten.xml");
 	}
 
     var $_GET = {};
+    var producten = <?= json_encode($xml); ?>;
 
     document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
         function decode(s) {
             return decodeURIComponent(s.split("+").join(" "));
         }
 
-        $_GET[decode(arguments[1])] = decode(arguments[2]);
+        function WhereId(id)
+        {
+            var rtw = 0;
+            $.each(producten.product, function(i, item)
+                {
+                    if(this.id == id)
+                        rtw = i;
+                }
+            );
+            return rtw;
+        }
+
+        var TempIndex = WhereId(decode(arguments[1]).replace('ID', ''));
+        if(producten.product[TempIndex] && producten.product[TempIndex].category == 'pakket')
+        {
+            //als er maar een artikel in het pakket zit is het direct bereikbaar
+            if(producten.product[TempIndex].onderdelen.onderdeel.id)
+            {
+                $_GET['ID'+producten.product[TempIndex].onderdelen.onderdeel.id] = $_GET['ID'+producten.product[TempIndex].onderdelen.onderdeel.id] || 0;
+                $_GET['ID'+producten.product[TempIndex].onderdelen.onderdeel.id] += producten.product[TempIndex].onderdelen.onderdeel.aantal * decode(arguments[2]);
+            }
+            else
+            {
+                var aantal = arguments[2];
+                $.each(producten.product[TempIndex].onderdelen.onderdeel, function(j, Item){
+                    //check of er wel iets inzit
+                    $_GET['ID'+this.id] = $_GET['ID'+this.id] || 0;
+                    $_GET['ID'+this.id] += this.aantal * aantal;
+                });
+            }
+
+            $_GET[decode(arguments[1])] = decode(arguments[2]);
+        }
+        else
+            $_GET[decode(arguments[1])] = decode(arguments[2]);
     });
 
-
-    var producten = <?= json_encode($xml); ?>;
 
     var counter = 0;
     //get is leeg dus plaats maar alle artikelen
@@ -330,20 +363,7 @@ $xml = simplexml_load_file("../xml/producten.xml");
             {
                 if(this.category && this.category == 'pakket' && this.onderdelen)
                 {
-                    //als er maar een artikel in het pakket zit is het direct bereikbaar
-                    if(this.onderdelen.onderdeel.id)
-                    {
-                        $_GET['ID'+this.onderdelen.onderdeel.id] = $_GET['ID'+this.onderdelen.onderdeel.id] || 0;
-                        $_GET['ID'+this.onderdelen.onderdeel.id] += this.onderdelen.onderdeel.aantal * $_GET['ID'+idtemp];
-                    }
-                    else
-                    {
-                        $.each(this.onderdelen.onderdeel, function(j, Item){
-                            //check of er wel iets inzit
-                            $_GET['ID'+this.id] = $_GET['ID'+this.id] || 0;
-                            $_GET['ID'+this.id] += this.aantal * $_GET['ID'+idtemp];
-                        });
-                    }
+
                 }
 
                 else if(id.toString().indexOf('.') !== -1){
