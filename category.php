@@ -118,7 +118,17 @@ $xml = simplexml_load_file("xml/producten.xml");
 				{{/if}}
 				</p>
 	</script>
+    <!-- analytics om de bezoeker te volgen -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-35248865-3', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 
 </head>
     
@@ -143,7 +153,7 @@ $xml = simplexml_load_file("xml/producten.xml");
             					<i class="icon-shopping-cart icon-black"></i>
             					<a id="open-cart" class="open noboxshadow dropdown-toggle" data-toggle="dropdown" href="#" style="box-shadow:none;color:FF8C00;">Mijn mandje</a>
            		 			<span id="cartinfo">
-                  					<span id="cartqty">(0 items)</span>&nbsp;<span id="cartprice">€0.00</span>
+                  					<span id="cartqty">(0 items)</span>&nbsp;<span id="cartprice">ï¿½0.00</span>
             					</span>
             					<ul class="dropdown-menu minicart">
               						<li>
