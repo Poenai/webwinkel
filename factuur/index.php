@@ -198,13 +198,13 @@ $xml = simplexml_load_file("../xml/producten.xml");
             if (i >= 0) {
                 if(this['BTWpercentage'] == 21)
                 {
-                    totaalBtwHoog += parseFloat(this['SubBruto']);
-                    totaalNetto += parseFloat(this['SubNetto']);
+                    totaalBtwHoog += parseFloat(this['SubBruto']) || 0;
+                    totaalNetto += parseFloat(this['SubNetto']) || 0;
                 }
                 else {
-                    totaalBtwLaag += parseFloat(this['SubBruto']);
+                    totaalBtwLaag += parseFloat(this['SubBruto']) || 0;
                 }
-                totaalBruto += parseFloat(this['SubBruto']);
+                totaalBruto += parseFloat(this['SubBruto']) || 0;
             }
         });
 
