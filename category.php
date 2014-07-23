@@ -1,5 +1,5 @@
 <?php
-$xml = simplexml_load_file("xml/producten.xml");
+require_once "PHPLib/producten.php";
 ?>
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -37,7 +37,7 @@ $xml = simplexml_load_file("xml/producten.xml");
 <!-- json data -->
 <script src="js/store.js" type="text/javascript"></script>
 <script>
-    var Catalog = <?= json_encode($xml); ?>.product;
+    var Catalog = <?= Producten::GetAllProducts(true); ?>.product;
 </script>
 
 <!-- templates -->

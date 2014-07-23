@@ -1,5 +1,5 @@
 <?php
-$xml = simplexml_load_file("../xml/producten.xml");
+require_once "../PHPLib/producten.php";
 
 
 ?>
@@ -281,7 +281,7 @@ $xml = simplexml_load_file("../xml/producten.xml");
 	}
 
     var $_GET = {};
-    var producten = <?= json_encode($xml); ?>;
+    var producten = <?= Producten::GetAllProducts(true); ?>;
 
     document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
         function decode(s) {
