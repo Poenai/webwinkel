@@ -67,9 +67,9 @@ Links =
             "type": "menu"
         },
         {
-            "link": "index.php",
-            "label": "Home",
-            "highlight": "Home",
+            "link": "prijsoverzicht",
+            "label": "Prijslijst weergave",
+            "highlight": "Prijzen",
             "type": "mainmenu"
         },
         {

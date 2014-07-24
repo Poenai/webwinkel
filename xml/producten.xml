@@ -168,16 +168,16 @@
     <product>
         <id>24</id>
         <category>pakket</category>
-        <name>PakketAll-In-One35</name>
-        <brand>35 rijlessen + examen</brand>
-        <seoName>pakket-35-lessen</seoName>
-        <price>1000.00</price>
+        <name>PakketAll-In-One50</name>
+        <brand>50 rijlessen + examen</brand>
+        <seoName>pakket-50-lessen</seoName>
+        <price>2000.00</price>
         <availability>yes</availability>
-        <formatedPrice>&amp;euro;1000.00</formatedPrice>
+        <formatedPrice>&amp;euro;2000.00</formatedPrice>
         <featured>yes</featured>
-        <highlight>35 stuks les</highlight>
+        <highlight>50 stuks les</highlight>
         <image>shirt2.jpg</image>
-        <description>35 rijlessen van 60 min + examen</description>
+        <description>50 rijlessen van 60 min + examen</description>
         <BTWpercentage>21</BTWpercentage>
         <minimal>1</minimal>
         <onderdelen>

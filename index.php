@@ -330,9 +330,6 @@ require_once "PHPLib/producten.php";
                 })
             });
 
-	//Google Analytics hieronder
-
-
      </script>
     
 </body></html>
