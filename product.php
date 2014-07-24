@@ -39,7 +39,7 @@ $xml = simplexml_load_file("xml/producten.xml");
 <!-- json data -->
 <script src="js/store.js" type="text/javascript"></script>
 <script>
-    var Catalog = <?= Producten::GetAllProducts(true); ?>.product;
+    var Catalog = <?= Producten::GetAllProducts(true); ?>;
 </script>
 
 <!-- templates -->
