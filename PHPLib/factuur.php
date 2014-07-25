@@ -53,6 +53,38 @@ class Factuur
     }
 
     /**
+     *
+     */
+    public function SaveAsXML()
+    {
+        //TODO: er moet gekozen onder welke naam en welke gegevens daar allemaal in komen te staan
+    }
+
+    /**
+     * @param $identifier
+     * @return Factuur
+     */
+    public static function GetFactuurFromXML($identifier)
+    {
+        //TODO implementatie aan de hand van de vorige functie
+    }
+
+    /**
+     * @return int
+     * @description bedrag in centen
+     */
+    public function GetTotaalBedrag()
+    {
+        $som = 0;
+        foreach($this->_realFactuurRegels as $regel)
+        {
+            $som += intval( $regel->GetProduct()->aantal * $regel->GetProduct()->price * 100);
+        }
+        return $som;
+    }
+
+
+    /**
      * @param Product $product
      * @param int $aantal
      * @description medthode is recursive opgezet zodat in theorie de pakken bijna oneindig zouden kunnen nesten.
@@ -95,5 +127,7 @@ class Factuur
         }
         return null;
     }
+
+
 
 } 
