@@ -6,6 +6,8 @@
  * Time: 16:20
  */
 
+require_once dirname(__FILE__)."/PHPMailer/PHPMailerAutoLoad.php";
+
 /**
  * Class Mail
  */
@@ -98,6 +100,32 @@ class Mail {
     public function Send()
     {
 
+    }
+
+    /**
+     * @return PHPMailer
+     */
+    static public function  GetMailerAsSMTP()
+    {
+        $mail = new PHPMailer(true);
+        include dirname(__FILE__)."/config/mail.config.php";
+
+        $mail->isSMTP();
+        $mail->Host = $config['SMTP']['Host'];
+        $mail->SMTPAuth = $config['SMTP']['SMTPAuth'];
+        $mail->Username = $config['SMTP']['Username'];
+        $mail->Password = $config['SMTP']['Password'];
+        $mail->SMTPSecure = $config['SMTP']['SMTPSecure'];
+
+        $mail->From = $config['SMTP']['From'];
+        $mail->FromName = $config['SMTP']['FromName'];
+
+        $mail->setWordWrap($config['SMTP']['WordWrap']);
+
+        return $mail;
+
+
+        //$config['SMTP']
     }
 }
 
