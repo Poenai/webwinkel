@@ -5,7 +5,8 @@ try
 {
     if(array_key_exists ( 'BSN' , $_POST))
     {
-        print Contacten::GetPersonByBSN($_POST['BSN'], true);
+
+        print Contacten::GetPersonByBSN($_POST['BSN'])->ToJson();
     }
     else
     {
