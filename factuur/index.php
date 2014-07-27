@@ -354,6 +354,11 @@ require_once "../PHPLib/producten.php";
         });
     }
     else {
+        //beveiliging dat id 99 van de administratiekosten altijd aanwezig is.
+        if(!$_GET['ID99'])
+        {
+            $_GET['ID99'] = 1;
+        }
         $.each(producten.product, function(i, item) {
             var id = this.id;
             var disabled = 'disabled';
