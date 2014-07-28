@@ -5,17 +5,28 @@
  * Date: 23-7-14
  * Time: 22:41
  */
+require_once dirname(__FILE__)."/product.php";
+
 class Producten {
     //private fields
     private static  $_fileName = "";
+    /**
+     * @var Product[]
+     */
     private static $_products;
 
     //public methods
+    /**
+     * @description een soort alternatiefe constructor
+     */
     public static function Initialize()
     {
         //zorgt ervoor als de require_once uit andere mappen komt dat het path altijd juist blijft
         self::$_fileName = dirname(__FILE__)."/../xml/producten.xml";
-        self::$_products = simplexml_load_file(self::$_fileName);
+        foreach(simplexml_load_file(self::$_fileName)->product as $product)
+        {
+            self::$_products[] = new Product($product);
+        }
     }
 
     public static function GetAllProducts($JsonString = false)
@@ -28,7 +39,7 @@ class Producten {
 
     public static function GetProductByID($ID, $JsonString = false)
     {
-        foreach(self::$_products->product as $product)
+        foreach(self::$_products as $product)
         {
             if($product->id == $ID)
             {

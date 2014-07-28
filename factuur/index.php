@@ -291,7 +291,7 @@ require_once "../PHPLib/producten.php";
         function WhereId(id)
         {
             var rtw = 0;
-            $.each(producten.product, function(i, item)
+            $.each(producten, function(i, item)
                 {
                     if(this.id == id)
                         rtw = i;
@@ -301,18 +301,18 @@ require_once "../PHPLib/producten.php";
         }
 
         var TempIndex = WhereId(decode(arguments[1]).replace('ID', ''));
-        if(producten.product[TempIndex] && producten.product[TempIndex].category == 'pakket')
+        if(producten[TempIndex] && producten[TempIndex].category == 'pakket')
         {
             //als er maar een artikel in het pakket zit is het direct bereikbaar
-            if(producten.product[TempIndex].onderdelen.onderdeel.id)
+            if(producten[TempIndex].onderdelen.id)
             {
-                $_GET['ID'+producten.product[TempIndex].onderdelen.onderdeel.id] = $_GET['ID'+producten.product[TempIndex].onderdelen.onderdeel.id] || 0;
-                $_GET['ID'+producten.product[TempIndex].onderdelen.onderdeel.id] += producten.product[TempIndex].onderdelen.onderdeel.aantal * decode(arguments[2]);
+                $_GET['ID'+producten[TempIndex].onderdelen.id] = $_GET['ID'+producten[TempIndex].onderdelen.id] || 0;
+                $_GET['ID'+producten[TempIndex].onderdelen.id] += producten[TempIndex].onderdelen.aantal * decode(arguments[2]);
             }
             else
             {
                 var aantal = arguments[2];
-                $.each(producten.product[TempIndex].onderdelen.onderdeel, function(j, Item){
+                $.each(producten[TempIndex].onderdelen, function(j, Item){
                     //check of er wel iets inzit
                     $_GET['ID'+this.id] = $_GET['ID'+this.id] || 0;
                     $_GET['ID'+this.id] += this.aantal * aantal;
@@ -329,7 +329,7 @@ require_once "../PHPLib/producten.php";
     var counter = 0;
     //get is leeg dus plaats maar alle artikelen
     if(jQuery.isEmptyObject($_GET)) {
-        $.each(producten.product, function(i, item) {
+        $.each(producten, function(i, item) {
             var id = this.id;
             var disabled = '';
             if(id.toString().indexOf('.') !== -1){
@@ -359,7 +359,7 @@ require_once "../PHPLib/producten.php";
         {
             $_GET['ID99'] = 1;
         }
-        $.each(producten.product, function(i, item) {
+        $.each(producten, function(i, item) {
             var id = this.id;
             var disabled = 'disabled';
             var idtemp = id.replace('.1','');

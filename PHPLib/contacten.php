@@ -6,6 +6,8 @@
  * Time: 0:05
  */
 
+require_once dirname(__FILE__)."/contact.php";
+
 /**
  * Class Contacten
  */
@@ -15,16 +17,20 @@ class Contacten {
      */
     static private $_file;
     /**
-     * @var SimpleXMLElement
+     * @var Contact[]
      */
     static private $_contacten;
 
 
     public static function Initialize()
     {
-         //zorgt ervoor als de require_once uit andere mappen komt dat het path altijd juist blijft
-         self::$_file = dirname(__FILE__)."/../xml/contacts.xml";
-        self::$_contacten = simplexml_load_file(self::$_file);
+        //zorgt ervoor als de require_once uit andere mappen komt dat het path altijd juist blijft
+        self::$_file = dirname(__FILE__)."/../xml/contacts.xml";
+        foreach(simplexml_load_file(self::$_file)->contact as $contact)
+        {
+            self::$_contacten[] = new Contact($contact);
+        }
+
     }
 
     /**
@@ -49,29 +55,22 @@ class Contacten {
     /**
      * @param int $bsn
      * @param bool $JsonString
-     * @return string | SimpleXMLElement
+     * @return Contact
      * @throws Exception
      */
-    public  static function GetPersonByBSN($bsn, $JsonString)
+    public  static function GetPersonByBSN($bsn)
     {
         if(!self::_elfProef($bsn))
             throw new Exception("BSN is geen geldig nummer");
 
-        foreach(self::$_contacten->contact as $persoon)
+        foreach(self::$_contacten as $persoon)
         {
             if($persoon->BSN == $bsn)
             {
-                if(!$JsonString)
-                {
-                    return $persoon;
-                }
-                else
-                {
-                    return json_encode($persoon);
-                }
+                return $persoon;
             }
         }
-        throw new Exception("persoon si niet gevonden in de verzameling");
+        throw new Exception("persoon is niet gevonden in de verzameling");
     }
 
 }
