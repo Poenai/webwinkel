@@ -1,3 +1,9 @@
+
 [submodule "PHPLib/PHPMailer"]
 	path = PHPLib/PHPMailer
 	url = https://github.com/PHPMailer/PHPMailer
+
+[submodule "PHPLib/MollieApi"]
+	path = PHPLib/MollieApi
+	url = https://github.com/mollie/mollie-api-php
+

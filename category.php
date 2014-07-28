@@ -37,7 +37,7 @@ require_once "PHPLib/producten.php";
 <!-- json data -->
 <script src="js/store.js" type="text/javascript"></script>
 <script>
-    var Catalog = <?= Producten::GetAllProducts(true); ?>.product;
+    var Catalog = <?= Producten::GetAllProducts(true); ?>;
 </script>
 
 <!-- templates -->
