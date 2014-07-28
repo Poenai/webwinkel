@@ -9,12 +9,13 @@
 require_once dirname(__FILE__)."/../PHPLib/controller.php";
 require_once dirname(__FILE__)."/../PHPLib/producten.php";
 require_once dirname(__FILE__)."/../PHPLib/contacten.php";
+require_once dirname(__FILE__)."/../PHPLib/factuur.php";
 
 class AdminController extends Controller {
 
     public function facturen()
     {
-
+        $this->SetVar("facturen", Factuur::GetAllFactuurs());
     }
 
     public function leerlingen()

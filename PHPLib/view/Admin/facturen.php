@@ -115,6 +115,44 @@
                     </tr>
                     </thead>
 
+                    <?php
+                    /**
+                     * @var $facturen Factuur[]
+                     */
+
+                    foreach($facturen as $factuur)
+                    {
+                        ?>
+                        <tr>
+                            <td><input name="chk[]" type="checkbox" id="c_33" value="33"></td>
+                            <td><a rel="popover" data-placement="right"
+                                   data-original-title="Invoice # 000032"
+                                   data-content="
+                                         <div><div>
+                                         <div style='padding:10px 0 0 0'><span style='padding:10px 10px 0 0'>Paid Amount</span>�0.00</div>
+                                         <div><span style='padding:0 10px 0 0'>Balance Amount</span>�0.00</div>
+
+                                         <hr>
+                                         "
+                                   href="bewerken.php?uid=32">   <?=$factuur->GetId()?></a>
+                            </td>
+                            <td>ID2=1&ID3=1</td>
+                            <td>
+                                <div></div>
+                                <div style="font-size:11px"><?=$factuur->GetContact()->id?></div>
+                            </td>
+                            <td>26-7-2014</td>
+                            <td style="text-align:right">&euro; <?= $factuur->GetTotaalBedrag()?></td>
+                            <td>JA</td>
+                            <td> &nbsp;&nbsp;&nbsp;
+                                <a title="Edit Invoice" href="bwerken.php?uid=33">edit</a>
+                            </td>
+
+
+                        </tr>
+                    <?php
+                    }
+                    ?>
 
                     <tr>
                         <td><input name="chk[]" type="checkbox" id="c_33" value="33"></td>
