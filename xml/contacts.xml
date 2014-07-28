@@ -9,6 +9,7 @@
         <telefoon>020-3827432</telefoon>
         <!-- bewust een fout BSN nummer zal niet door de check komen -->
         <BSN>446371643</BSN>
+        <email>t@t.nl</email>
     </contact>
     <contact id="2">
         <naam>Jane Doe</naam>
@@ -18,6 +19,7 @@
         <plaats>Haarlem</plaats>
         <telefoon>06-15489645</telefoon>
         <BSN>798397019</BSN>
+        <email>t@t.nl</email>
     </contact>
     <contact id="3">
         <naam>Stephany Doe</naam>
@@ -27,6 +29,7 @@
         <plaats>Ommeren</plaats>
         <telefoon>034-9382732</telefoon>
         <BSN>286526232</BSN>
+        <email>t@t.nl</email>
     </contact>
     <contact id="4">
         <naam>Steve Doe</naam>
@@ -36,5 +39,6 @@
         <plaats>Rotterdam</plaats>
         <telefoon>010-4829346</telefoon>
         <BSN>446371646</BSN>
+        <email>t@t.nl</email>
     </contact>
 </contacts>

@@ -37,4 +37,9 @@ class Contact {
     {
         return json_encode($this);
     }
+
+    public function IsValid()
+    {
+        //TODO: kijken of alle gegevens van het goede type zijn
+    }
 } 
