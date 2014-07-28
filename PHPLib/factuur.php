@@ -147,7 +147,7 @@ class Factuur
         $som = 0;
         foreach($this->_realFactuurRegels as $regel)
         {
-            $som += $regel->GetProduct()->aantal * $regel->GetProduct()->price;
+            $som += $regel->GetAantal() * $regel->GetProduct()->price;
         }
         return $som;
     }
@@ -200,10 +200,3 @@ class Factuur
         return null;
     }
 }
-
-$f = new Factuur(Contacten::GetPersonByBSN(446371646));
-
-$f->AddProduct(Producten::GetProductByID(99));
-$f->AddProduct(Producten::GetProductByID(1));
-
-print $f->SaveAsXML();
