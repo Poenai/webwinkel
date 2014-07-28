@@ -8,6 +8,7 @@
 
 require_once dirname(__FILE__)."/../PHPLib/controller.php";
 require_once dirname(__FILE__)."/../PHPLib/producten.php";
+require_once dirname(__FILE__)."/../PHPLib/contacten.php";
 
 class AdminController extends Controller {
 
@@ -18,7 +19,7 @@ class AdminController extends Controller {
 
     public function leerlingen()
     {
-
+        $this->SetVar('leerlingen', Contacten::GetAllContacts());
     }
 
     public function producten()

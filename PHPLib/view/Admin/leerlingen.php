@@ -27,58 +27,28 @@
                     </thead>
 
 
+                    <?php
+                    /**
+                     * @var $leerlingen Contact[]
+                     */
 
-                    <tr>
-                        <td>pp</td>
-                        <td>pp</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a href="">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td>
+                    foreach($leerlingen as $leerling)
+                    {
+                        ?>
+                        <tr>
+                            <td><?=$leerling->naam?></td>
+                            <td><?=$leerling->straat." ".$leerling->huisnummer?></td>
+                            <td><?=$leerling->postcode?></td>
+                            <td><?=$leerling->plaats?></td>
+                            <td><?=$leerling->telefoon?></td>
+                            <td><?=$leerling->BSN?></td>
+                            <td><?=$leerling->email?></td>
+                            <td><a href="">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td>
+                        </tr>
+                        <?php
+                    }
 
-
-                    </tr>
-
-                    <tr>
-                        <td>567567567</td>
-                        <td>ddan</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a href="">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td>
-
-
-                    </tr>
-
-                    <tr>
-                        <td>123</td>
-                        <td>Leejay Hall</td>
-                        <td>Leejay Hall</td>
-                        <td>sheenahall123@gmail.com</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><a href="">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td>
-
-
-                    </tr>
-
-                    <tr>
-                        <td>001</td>
-                        <td>test</td>
-                        <td></td>
-                        <td>a@gail.com</td>
-                        <td></td>
-                        <td>fdg</td>
-                        <td></td>
-                        <td><a href="">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td>
-
-
-                    </tr>
+                    ?>
                 </table>
             </form>
 
