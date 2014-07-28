@@ -11,7 +11,7 @@ class Contact {
     public $straat;
     public $huisnummer;
     public $postcode;
-    public $plaas;
+    public $plaats;
     public $telefoon;
     public $BSN;
     public $email;
