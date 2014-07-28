@@ -80,6 +80,22 @@ class Contacten {
         return self::$_contacten;
     }
 
+    /**
+     * @param int $id
+     * @return Contact
+     */
+    public static function GetContactById($id)
+    {
+        foreach(self::$_contacten as $contact)
+        {
+            if($contact->id == $id)
+            {
+                return $contact;
+            }
+        }
+        return null;
+    }
+
 }
 
 //zorg dat het xml document is ingelezen

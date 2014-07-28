@@ -7,6 +7,7 @@
  */
 
 class Contact {
+    public $id;
     public $naam;
     public $straat;
     public $huisnummer;
