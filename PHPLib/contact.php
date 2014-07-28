@@ -11,7 +11,7 @@ class Contact {
     public $straat;
     public $huisnummer;
     public $postcode;
-    public $plaas;
+    public $plaats;
     public $telefoon;
     public $BSN;
     public $email;
@@ -36,5 +36,10 @@ class Contact {
     public function ToJson()
     {
         return json_encode($this);
+    }
+
+    public function IsValid()
+    {
+        //TODO: kijken of alle gegevens van het goede type zijn
     }
 } 

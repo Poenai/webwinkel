@@ -54,11 +54,10 @@ class Contacten {
 
     /**
      * @param int $bsn
-     * @param bool $JsonString
      * @return Contact
      * @throws Exception
      */
-    public  static function GetPersonByBSN($bsn)
+    public static function GetPersonByBSN($bsn)
     {
         if(!self::_elfProef($bsn))
             throw new Exception("BSN is geen geldig nummer");
@@ -71,6 +70,14 @@ class Contacten {
             }
         }
         throw new Exception("persoon is niet gevonden in de verzameling");
+    }
+
+    /**
+     * @return Contact[]
+     */
+    public static function GetAllContacts()
+    {
+        return self::$_contacten;
     }
 
 }
