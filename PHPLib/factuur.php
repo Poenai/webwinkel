@@ -108,7 +108,21 @@ class Factuur
      */
     public static function GetFactuurFromXML($identifier)
     {
-        //TODO implementatie aan de hand van de vorige functie
+        if(file_exists(dirname(__FILE__)."/../xml/faceturen/factuur".$identifier.".xml"))
+        {
+            $xml = simplexml_load_file(dirname(__FILE__)."/../xml/faceturen/factuur".$identifier.".xml");
+
+            //mmaak een nieuw factuur object aan.
+            $f = new Factuur(Contacten::GetContactById($xml->contact));
+            $f->_id = $xml->id;
+            foreach($xml->regels->regel as $regel)
+            {
+                $f->AddProduct(Producten::GetProductByID($regel->id), $regel->aantal);
+            }
+
+            return $f;
+        }
+
     }
 
     /**
@@ -116,7 +130,12 @@ class Factuur
      */
     public static function GetAllFactuurs()
     {
-        //TODO implementatie. Eerst bovenste twee
+        $rtw = array();
+        foreach(glob(dirname(__FILE__)."/../xml/faceturen/factuur*xml") as $file)
+        {
+            $rtw[] = self::GetFactuurFromXML(str_replace("factuur", "", basename($file, '.xml')));
+        }
+        return $rtw;
     }
 
     /**
