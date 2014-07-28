@@ -32,6 +32,10 @@ class Factuur
      * @description de regels die een voor een worden toegevoegd zonder dat pakketen worden uitgesplitst en producten bij elkaar worden opgeteld
      */
     private $_factuurRegels;
+    /**
+     * @var int
+     */
+    private $_id = 10;
 
 
     /**
@@ -40,6 +44,24 @@ class Factuur
     public function __construct($naw)
     {
         $this->_naw = $naw;
+
+        //todo logica voor id toevoegen
+    }
+
+    /**
+     * @return Contact
+     */
+    public function GetContact()
+    {
+        return $this->_naw;
+    }
+
+    /**
+     * @return int
+     */
+    public function GetId()
+    {
+        return $this->_id;
     }
 
     /**
@@ -61,11 +83,23 @@ class Factuur
     }
 
     /**
-     *
+     * @return mixed
      */
     public function SaveAsXML()
     {
-        //TODO: er moet gekozen onder welke naam en welke gegevens daar allemaal in komen te staan
+        $fXML = new SimpleXMLElement('<factuur/>');
+        $fXML->addChild('id', $this->_id);
+        $fXML->addChild('contact', $this->GetContact()->id);
+        $regelsXML = $fXML->addChild('regels');
+        foreach($this->GetAllFactuurRegels() as $regel )
+        {
+            $regelXML = $regelsXML->addChild('regel');
+            $regelXML->addChild('id', $regel->GetId());
+            $regelXML->addChild('aantal', $regel->GetAantal());
+        }
+
+        $fXML->saveXML(dirname(__FILE__)."/../xml/faceturen/factuur".$this->_id.".xml");
+        return dirname(__FILE__)."/../xml/faceturen/factuur".$this->_id.".xml";
     }
 
     /**
@@ -149,17 +183,8 @@ class Factuur
 }
 
 $f = new Factuur(Contacten::GetPersonByBSN(446371646));
+
 $f->AddProduct(Producten::GetProductByID(99));
 $f->AddProduct(Producten::GetProductByID(1));
 
-$fXML = new SimpleXMLElement('<factuur/>');
-$regelsXML = $fXML->addChild('regels');
-foreach($f->GetAllFactuurRegels() as $regel )
-{
-    $regelXML = $regelsXML->addChild('regel');
-    $regelXML->addChild('id', $regel->GetId());
-    $regelXML->addChild('id', $regel->GetAantal());
-}
-
-print $fXML->saveXML();
-
+print $f->SaveAsXML();
