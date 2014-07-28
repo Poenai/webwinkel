@@ -89,9 +89,9 @@
 
         <div class="nav">
             <ul>
-                <li><a   class="active" href="?page=facturen">Facturen</a></li>
-                <li><a   href="?page=producten">Producten</a></li>
-                <li><a   href="?page=leerlingen">Leerlingen</a></li>
+                <li><a   <?php if(!isset($_GET['page']) || $_GET['page'] == "facturen"){?>class="active"<?php } ?> href="?page=facturen">Facturen</a></li>
+                <li><a   <?php if(isset($_GET['page']) && $_GET['page'] == "producten"){?>class="active"<?php } ?> href="?page=producten">Producten</a></li>
+                <li><a   <?php if(isset($_GET['page']) && $_GET['page'] == "leerlingen"){?>class="active"<?php } ?> href="?page=leerlingen">Leerlingen</a></li>
             </ul>
 
         </div>
