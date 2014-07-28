@@ -6,33 +6,39 @@
  * Time: 15:33
  */
 
+require_once dirname(__FILE__)."/view.php";
+
 class Controller {
-    public $view;
+    /**
+     * @var View
+     */
+    private $_view;
+
 
     public function __construct($view)
     {
-        $this->view = $view;
-
-        $this->SetLayout();
-    }
-
-    public function SetLayout()
-    {
-        require dirname(__FILE__)."/layout/".str_replace("Controller", "", get_class($this)).".php" ;
-    }
-
-    public function SetView()
-    {
-        if(method_exists($this, $this->view))
+        if(method_exists($this, $view))
         {
-            $this->{$this->view}();
+            $this->_view = new View(str_replace("Controller", "", get_class($this)), $view);
 
-            require dirname(__FILE__)."/view/".str_replace("Controller", "", get_class($this))."/{$this->view}.php" ;
+
+            $this->{$view}();
+
+            $this->_view->RenderPage();
         }
         else
         {
             http_response_code(404);
         }
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $var
+     */
+    protected function SetVar($name, $var)
+    {
+        $this->_view->SetVar($name, $var);
     }
 
 } 

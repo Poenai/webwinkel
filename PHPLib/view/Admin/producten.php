@@ -13,30 +13,43 @@
             <form action="">
                 <table  class="table table-condensed table-hover table-striped table-bordered" cellpadding="0" cellspacing="0" border="0" >
                     <tr >
-                        <th>Code</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Unit Value</th>
-                        <th>Tax</th>
+                        <th>BTW Percentage</th>
 
                     </tr>
 
 
+                    <?php
+                    /**
+                     * @desciption een array met alle producten
+                     * @var $producten Product[]
+                     */
+
+                    foreach($producten as $product)
+                    {
+                        ?>
+                        <tr >
+                            <td ><?= $product->id?></td>
+                            <td ><?= $product->name?></p></td>
+                            <td ><?= $product->description?></p></td>
+                            <td >&euro;<?= $product->price?></td>
+                            <td ><?= $product->BTWpercentage?> &#37;</td>
+
+                            <td><a href="edit-item.php?uid=51">Edit</a>&nbsp;&nbsp;<a href="action/xt_delete_item.php?uid=51" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a></td>
+
+                        </tr>
+                    <?php
+                    }
+
+                    ?>
 
 
-                    <tr >
-                        <td >devmob</td>
-                        <td >Development</p></td>
-                        <td >Mobile development</p></td>
-                        <td >�250.00</td>
-                        <td >�20.00</td>
-
-                        <td><a href="edit-item.php?uid=51">Edit</a>&nbsp;&nbsp;<a href="action/xt_delete_item.php?uid=51" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a></td>
-
-                    </tr>
 
 
-                    <tr >
+                    <!-- <tr >
                         <td >001a</td>
                         <td >Website</p></td>
                         <td >joomla website</p></td>
@@ -57,7 +70,7 @@
 
                         <td><a href="edit-item.php?uid=53">Edit</a>&nbsp;&nbsp;<a href="action/xt_delete_item.php?uid=53" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a></td>
 
-                    </tr>
+                    </tr>-->
 
 
                 </table>
