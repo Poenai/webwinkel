@@ -6,8 +6,8 @@
  * Time: 11:24
  */
 
-require_once dirname(__FILE__)."/contact.php";
-require_once dirname(__FILE__)."/product.php";
+require_once dirname(__FILE__)."/contacten.php";
+require_once dirname(__FILE__)."/producten.php";
 require_once dirname(__FILE__)."/onderdeel.php";
 require_once dirname(__FILE__)."/factuurRegel.php";
 
@@ -48,8 +48,16 @@ class Factuur
      */
     public function AddProduct($product, $aantal = 1)
     {
-        $this->_factuurRegels = new FactuurRegel($product, $aantal);
+        $this->_factuurRegels[] = new FactuurRegel($product, $aantal);
         $this->_addProductRecursivly($product, $aantal);
+    }
+
+    /**
+     * @return FactuurRegel[]
+     */
+    public function GetAllFactuurRegels()
+    {
+        return $this->_realFactuurRegels;
     }
 
     /**
@@ -70,15 +78,23 @@ class Factuur
     }
 
     /**
+     * @return Factuur[]
+     */
+    public static function GetAllFactuurs()
+    {
+        //TODO implementatie. Eerst bovenste twee
+    }
+
+    /**
      * @return int
-     * @description bedrag in centen
+     * @description bedrag in euros
      */
     public function GetTotaalBedrag()
     {
         $som = 0;
         foreach($this->_realFactuurRegels as $regel)
         {
-            $som += intval( $regel->GetProduct()->aantal * $regel->GetProduct()->price * 100);
+            $som += $regel->GetProduct()->aantal * $regel->GetProduct()->price;
         }
         return $som;
     }
@@ -118,16 +134,32 @@ class Factuur
      */
     private function _factuurRegelById($id)
     {
-        foreach($this->_realFactuurRegels as $regel)
+        if(!is_null($this->_realFactuurRegels))
         {
-            if($regel->GetProduct()->id == $id)
+            foreach($this->_realFactuurRegels as $regel)
             {
-                return $regel;
+                if($regel->GetProduct()->id == $id)
+                {
+                    return $regel;
+                }
             }
         }
         return null;
     }
+}
 
+$f = new Factuur(Contacten::GetPersonByBSN(446371646));
+$f->AddProduct(Producten::GetProductByID(99));
+$f->AddProduct(Producten::GetProductByID(1));
 
+$fXML = new SimpleXMLElement('<factuur/>');
+$regelsXML = $fXML->addChild('regels');
+foreach($f->GetAllFactuurRegels() as $regel )
+{
+    $regelXML = $regelsXML->addChild('regel');
+    $regelXML->addChild('id', $regel->GetId());
+    $regelXML->addChild('id', $regel->GetAantal());
+}
 
-} 
+print $fXML->saveXML();
+

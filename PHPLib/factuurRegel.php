@@ -48,6 +48,14 @@ class FactuurRegel {
     }
 
     /**
+     * @return int
+     */
+    public function GetAantal()
+    {
+        return $this->_aantal;
+    }
+
+    /**
      * @return Product
      */
     public function GetProduct()
