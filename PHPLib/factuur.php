@@ -40,12 +40,26 @@ class Factuur
 
     /**
      * @param Contact $naw
+     * @param int alleen maar gebruiken als je weet wat je doet
      */
-    public function __construct($naw)
+    public function __construct($naw, $id = null)
     {
         $this->_naw = $naw;
 
-        //todo logica voor id toevoegen
+        if(is_null($id))
+        {
+            /**
+             * @var $oldId int
+             */
+            $oldId = file_get_contents(dirname(__FILE__)."/../tmp/FactuurId.txt");
+            $oldId +=1;
+            fwrite(fopen(dirname(__FILE__)."/../tmp/FactuurId.txt", 'w'), $oldId);
+            $this->_id = $oldId;
+        }
+        else
+        {
+            $this->_id = $id;
+        }
     }
 
     /**
@@ -200,3 +214,5 @@ class Factuur
         return null;
     }
 }
+
+var_dump(new Factuur(Contacten::GetContactById(1)));
