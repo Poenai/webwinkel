@@ -18,6 +18,69 @@ require_once dirname(__FILE__)."/factuurRegel.php";
 class Factuur
 {
     /**
+     * @var boolean
+     */
+    private $_betaalstatus = false;
+
+    /**
+     * @param boolean $betaalstatus
+     */
+    public function setBetaalstatus($betaalstatus)
+    {
+        $this->_betaalstatus = $betaalstatus;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getBetaalstatus()
+    {
+        return $this->_betaalstatus;
+    }
+
+    /**
+     * @var string
+     */
+    private $_betalingswijze;
+
+    /**
+     * @param string $betalingswijze
+     */
+    public function setBetalingswijze($betalingswijze)
+    {
+        $this->_betalingswijze = $betalingswijze;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBetalingswijze()
+    {
+        return $this->_betalingswijze;
+    }
+
+    /**
+     * @var int
+     */
+    private $_factuurDatum;
+
+    /**
+     * @param int $factuurDatum
+     */
+    public function setFactuurDatum($factuurDatum)
+    {
+        $this->_factuurDatum = $factuurDatum;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFactuurDatum()
+    {
+        return $this->_factuurDatum;
+    }
+
+    /**
      * @var Contact
      * @description de geadreseerde van de factuur
      */
@@ -40,12 +103,36 @@ class Factuur
 
     /**
      * @param Contact $naw
+     * @param string|int $date factuurdatum
+     * @param int $id alleen maar gebruiken als je weet wat je doet
      */
-    public function __construct($naw)
+    public function __construct($naw = null, $date = null ,$id = null)
     {
         $this->_naw = $naw;
 
-        //todo logica voor id toevoegen
+        if(is_null($id))
+        {
+            /**
+             * @var $oldId int
+             */
+            $oldId = file_get_contents(dirname(__FILE__)."/../tmp/FactuurId.txt");
+            $oldId +=1;
+            fwrite(fopen(dirname(__FILE__)."/../tmp/FactuurId.txt", 'w'), $oldId);
+            $this->_id = $oldId;
+        }
+        else
+        {
+            $this->_id = $id;
+        }
+
+        //regelt de factuur datum
+        if(is_null($date)){
+            $this->_factuurDatum = time();
+        }elseif(is_int($date)){
+            $this->_factuurDatum = $date;
+        }else{
+            $this->_factuurDatum = strtotime($date);
+        }
     }
 
     /**
@@ -90,6 +177,7 @@ class Factuur
         $fXML = new SimpleXMLElement('<factuur/>');
         $fXML->addChild('id', $this->_id);
         $fXML->addChild('contact', $this->GetContact()->id);
+        $fXML->addChild('factuurdatum', $this->_factuurDatum );
         $regelsXML = $fXML->addChild('regels');
         foreach($this->GetAllFactuurRegels() as $regel )
         {
@@ -113,8 +201,7 @@ class Factuur
             $xml = simplexml_load_file(dirname(__FILE__)."/../xml/faceturen/factuur".$identifier.".xml");
 
             //mmaak een nieuw factuur object aan.
-            $f = new Factuur(Contacten::GetContactById($xml->contact));
-            $f->_id = $xml->id;
+            $f = new Factuur(Contacten::GetContactById($xml->contact), $xml->factuurdatum, $xml->id);
             foreach($xml->regels->regel as $regel)
             {
                 $f->AddProduct(Producten::GetProductByID($regel->id), $regel->aantal);
