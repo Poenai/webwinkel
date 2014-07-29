@@ -106,7 +106,7 @@ class Factuur
      * @param string|int $date factuurdatum
      * @param int $id alleen maar gebruiken als je weet wat je doet
      */
-    public function __construct($naw, $date = null ,$id = null)
+    public function __construct($naw = null, $date = null ,$id = null)
     {
         $this->_naw = $naw;
 
