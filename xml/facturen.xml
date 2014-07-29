@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<facturen>
+	<factuur>
+		<ID>000001</ID> <!-- autoincrement via txt, laatste++-->
+		<klantID>1</klantID>
+		<datum>27-7-20114</datum>
+		<totaalBedrag>205.90</totaalBedrag>
+		<isBetaald>JA</isBetaald>
+		<productenAantallen>ID2=1-ID4=2</productenAantallen>
+	</factuur>
+</facturen>

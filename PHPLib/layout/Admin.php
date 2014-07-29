@@ -81,7 +81,7 @@
     <div class="topstrip">
         <div class="rightside">
             <p><strong>Welkom</strong><span>Admin</span></p>
-            <a href="http://supportmyshop.com/invoice/action/xt_logout.php" class="logout">Uitloggen</a>
+            <a href="" class="logout">Uitloggen</a>
         </div>
     </div>
 
