@@ -32,6 +32,7 @@ class AdminController extends Controller {
     {
         $this->SetVar('klanten', Contacten::GetAllContacts());
         $this->SetVar('producten', Producten::GetAllProducts());
+        $this->SetVar('factuur', new Factuur());
     }
 
 } 

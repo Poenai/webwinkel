@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $producten Product[]
+ * @var $factuur Factuur
  */
 ?>
 <div id="sub">
@@ -141,7 +142,7 @@
                             </tr>
                             <tr>
                                 <td>Factuur#</td>
-                                <td><input name="invoice_number" type="text" readonly="readonly" value="000033"/>
+                                <td><input name="invoice_number" type="text" readonly="readonly" value="<?=$factuur->GetId()?>"/>
                                 </td>
                             </tr>
                             <tr>
