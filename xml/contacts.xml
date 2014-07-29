@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <contacts>
-    <contact id="1">
+    <contact>
+        <id>1</id>
         <naam>John Doe</naam>
         <straat>Heiligeweg</straat>
         <huisnummer>23</huisnummer>
@@ -9,8 +10,10 @@
         <telefoon>020-3827432</telefoon>
         <!-- bewust een fout BSN nummer zal niet door de check komen -->
         <BSN>446371643</BSN>
+        <email>t@t.nl</email>
     </contact>
-    <contact id="2">
+    <contact>
+        <id>2</id>
         <naam>Jane Doe</naam>
         <straat>Schoolenaerlaan</straat>
         <huisnummer>14</huisnummer>
@@ -18,8 +21,10 @@
         <plaats>Haarlem</plaats>
         <telefoon>06-15489645</telefoon>
         <BSN>798397019</BSN>
+        <email>t@t.nl</email>
     </contact>
-    <contact id="3">
+    <contact>
+        <id>3</id>
         <naam>Stephany Doe</naam>
         <straat>Ommerenveldseweg </straat>
         <huisnummer>27</huisnummer>
@@ -27,8 +32,10 @@
         <plaats>Ommeren</plaats>
         <telefoon>034-9382732</telefoon>
         <BSN>286526232</BSN>
+        <email>t@t.nl</email>
     </contact>
-    <contact id="4">
+    <contact >
+        <id>4</id>
         <naam>Steve Doe</naam>
         <straat>Nieuwe Binnenweg</straat>
         <huisnummer>103</huisnummer>
@@ -36,5 +43,6 @@
         <plaats>Rotterdam</plaats>
         <telefoon>010-4829346</telefoon>
         <BSN>446371646</BSN>
+        <email>t@t.nl</email>
     </contact>
 </contacts>
