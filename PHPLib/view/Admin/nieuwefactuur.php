@@ -125,7 +125,7 @@
         <div id="invoicexc">
 
 
-            <form action="action/xt_invoice_save.php" method="post" id="thisform">
+            <form action="savefactuur/" method="post" id="thisform">
 
 
                 <input id='rowcount' name='rowcount' type='hidden' value='1'>

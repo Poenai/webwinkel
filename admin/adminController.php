@@ -35,4 +35,8 @@ class AdminController extends Controller {
         $this->SetVar('factuur', new Factuur());
     }
 
+    public function savefactuur()
+    {
+
+    }
 } 
