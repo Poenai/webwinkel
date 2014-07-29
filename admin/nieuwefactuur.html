@@ -94,8 +94,8 @@
             </div>
             <div id="sub">
             	<ul>  
-					<li><a href="../invoice/view-invoices.php">Toon facturen</a></li>
-					<li><a href="../invoice/add-invoice.php" class="active">Maak nieuw factuur</a></li>
+					<li><a href="/?page=facturen">Toon facturen</a></li>
+					<li><a href="/?page=nieuwfactuur" class="active">Maak nieuw factuur</a></li>
                 </ul>
             </div>
     	</div>
@@ -305,12 +305,12 @@
 
     <thead>
     <tr>
-        <th width="179">Item Code</th>
-        <th width="180">Item Name</th>
-        <th width="176">Unit Value</th>
-        <th width="100">Qty</th>
-        <th width="100">Tax</th>
-        <th width="143">Line Total</th>
+        <th width="179">ProductID</th>
+        <th width="180">Naam</th>
+        <th width="176">Bedrag</th>
+        <th width="100">Aantal</th>
+        <th width="100">BTW</th>
+        <th width="143">SubTotaal</th>
         <th width="36">&nbsp;</th>
     </tr>
     </thead>
@@ -346,21 +346,21 @@
     <tr class="total">
         <td width='75%' valign="top" class="bortopbig"><a id="add-item" href="javascript:void(0);"
                                                           class="btn btn-info additem">Nieuw product</a></td>
-        <td class="bgcolor bor-left bor-top bor-bot"><span>Sub Total :</span></td>
+        <td class="bgcolor bor-left bor-top bor-bot"><span>Totaal ex BTW :</span></td>
         <td class="bgcolor bor-left bor-top bor-bot bor-right">
             <div id='sub-total'>&euro;0.00</div>
         </td>
     </tr>
     <tr class="total">
         <td>&nbsp;</td>
-        <td class="bgcolor bor-left bor-bot"><span>Tax :</span></td>
+        <td class="bgcolor bor-left bor-bot"><span>21% BTW :</span></td>
         <td class="bgcolor bor-left bor-right bor-bot">
             <div id='tax-total'>&euro;0.00</div>
         </td>
     </tr>
     <tr class="total">
         <td>&nbsp;</td>
-        <td class="bgcolordark total bor-left bor-bot"><span class="total"><strong>Total</strong></span></td>
+        <td class="bgcolordark total bor-left bor-bot"><span class="total"><strong>Totaalbedrag</strong></span></td>
         <td class="bgcolordark total bor-left bor-bot bor-right">
             <div class="total">
                 <div id='total'>&euro;0.00</div>
