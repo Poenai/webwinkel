@@ -18,6 +18,27 @@ require_once dirname(__FILE__)."/factuurRegel.php";
 class Factuur
 {
     /**
+     * @var int
+     */
+    private $_factuurDatum;
+
+    /**
+     * @param int $factuurDatum
+     */
+    public function setFactuurDatum($factuurDatum)
+    {
+        $this->_factuurDatum = $factuurDatum;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFactuurDatum()
+    {
+        return $this->_factuurDatum;
+    }
+
+    /**
      * @var Contact
      * @description de geadreseerde van de factuur
      */
@@ -42,7 +63,7 @@ class Factuur
      * @param Contact $naw
      * @param int alleen maar gebruiken als je weet wat je doet
      */
-    public function __construct($naw, $id = null)
+    public function __construct($naw, $date = null ,$id = null)
     {
         $this->_naw = $naw;
 
@@ -59,6 +80,15 @@ class Factuur
         else
         {
             $this->_id = $id;
+        }
+
+        //regelt de factuur datum
+        if(is_null($date)){
+            $this->_factuurDatum = time();
+        }elseif(is_int($date)){
+            $this->_factuurDatum = $date;
+        }else{
+            $this->_factuurDatum = strtotime($date);
         }
     }
 
@@ -214,5 +244,3 @@ class Factuur
         return null;
     }
 }
-
-var_dump(new Factuur(Contacten::GetContactById(1)));
