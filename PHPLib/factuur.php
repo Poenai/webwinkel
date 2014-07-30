@@ -128,7 +128,7 @@ class Factuur
         //regelt de factuur datum
         if(is_null($date)){
             $this->_factuurDatum = time();
-        }elseif(is_int($date)){
+        }elseif(is_int(intval($date))){
             $this->_factuurDatum = $date;
         }else{
             $this->_factuurDatum = strtotime($date);
@@ -201,15 +201,13 @@ class Factuur
             $xml = simplexml_load_file(dirname(__FILE__)."/../xml/faceturen/factuur".$identifier.".xml");
 
             //mmaak een nieuw factuur object aan.
-            $f = new Factuur(Contacten::GetContactById($xml->contact), $xml->factuurdatum, $xml->id);
+            $f = new Factuur(Contacten::GetContactById($xml->contact), $xml->factuurdatum."", $xml->id);
             foreach($xml->regels->regel as $regel)
             {
                 $f->AddProduct(Producten::GetProductByID($regel->id), $regel->aantal);
             }
-
             return $f;
         }
-
     }
 
     /**

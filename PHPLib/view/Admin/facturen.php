@@ -124,28 +124,37 @@
                     {
                         ?>
                         <tr>
-                            <td><input name="chk[]" type="checkbox" id="c_33" value="33"></td>
+                            <td><input name="chk[]" type="checkbox" id="c_<?=$factuur->GetId()?>" value="<?=$factuur->GetId()?>"></td>
                             <td><a rel="popover" data-placement="right"
-                                   data-original-title="Invoice # 000032"
+                                   data-original-title="Invoice # <?=$factuur->GetId()?>"
                                    data-content="
                                          <div><div>
-                                         <div style='padding:10px 0 0 0'><span style='padding:10px 10px 0 0'>Paid Amount</span>�0.00</div>
-                                         <div><span style='padding:0 10px 0 0'>Balance Amount</span>�0.00</div>
+                                         <div style='padding:10px 0 0 0'><span style='padding:10px 10px 0 0'>Paid Amount</span>&euro;0.00</div>
+                                         <div><span style='padding:0 10px 0 0'>Balance Amount</span>&euro;0.00</div>
 
                                          <hr>
                                          "
-                                   href="bewerken.php?uid=32">   <?=$factuur->GetId()?></a>
+                                   href="editfactuur/<?=$factuur->GetId()?>/"><?=$factuur->GetId()?></a>
                             </td>
-                            <td>ID2=1&ID3=1</td>
+                            <?php
+                            //creere een snelle link met alle id's en hoeveel het er zijn
+                            //deze worden later met een implode (alias voor join samengevoegd tot een string)
+                            $linkWaardes = array();
+                            foreach($factuur->GetAllFactuurRegels() as $regel)
+                            {
+                                $linkWaardes[] = "ID".$regel->GetId().'='.$regel->GetAantal();
+                            }
+                            ?>
+                            <td><?= implode('&', $linkWaardes);?></td>
                             <td>
                                 <div></div>
                                 <div style="font-size:11px"><?=$factuur->GetContact()->id?></div>
                             </td>
-                            <td>26-7-2014</td>
+                            <td><?= date("j-n-Y" ,$factuur->getFactuurDatum());?></td>
                             <td style="text-align:right">&euro; <?= $factuur->GetTotaalBedrag()?></td>
-                            <td>JA</td>
+                            <td><?= ($factuur->getBetaalstatus() === true ? "ja" : "nee")?></td>
                             <td> &nbsp;&nbsp;&nbsp;
-                                <a title="Edit Invoice" href="bwerken.php?uid=33">edit</a>
+                                <a title="Edit Invoice" href="editfactuur/<?=$factuur->GetId()?>/">edit</a>
                             </td>
 
 
@@ -153,34 +162,6 @@
                     <?php
                     }
                     ?>
-
-                    <tr>
-                        <td><input name="chk[]" type="checkbox" id="c_33" value="33"></td>
-                        <td><a rel="popover" data-placement="right"
-                               data-original-title="Invoice # 000032"
-                               data-content="
-                                         <div><div>
-                                         <div style='padding:10px 0 0 0'><span style='padding:10px 10px 0 0'>Paid Amount</span>�0.00</div>
-                                         <div><span style='padding:0 10px 0 0'>Balance Amount</span>�0.00</div>
-
-                                         <hr>
-                                         "
-                               href="bewerken.php?uid=32">   000032</a>
-                        </td>
-                        <td>ID2=1&ID3=1</td>
-                        <td>
-                            <div></div>
-                            <div style="font-size:11px">2</div>
-                        </td>
-                        <td>26-7-2014</td>
-                        <td style="text-align:right">&euro; 225.95</td>
-                        <td>JA</td>
-                        <td> &nbsp;&nbsp;&nbsp;
-                            <a title="Edit Invoice" href="bwerken.php?uid=33">edit</a>
-                        </td>
-
-
-                    </tr>
 
 
                     <!-- Voor het creeeren van een mooie tussenruimtes tussen de rijen
