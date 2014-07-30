@@ -1,8 +1,8 @@
 <div id="sub">
 
     <ul>
-        <li><a href="../customer/view-customers.php" class="active">Toon producten</a></li>
-        <li><a href="../customer/add-customer.php">Nieuwe product</a></li>
+        <li><a href="producten/" class="active">Toon producten</a></li>
+        <li><a href="#">Nieuwe product</a></li>
     </ul>
 </div>
 </div>

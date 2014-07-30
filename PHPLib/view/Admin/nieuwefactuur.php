@@ -6,8 +6,8 @@
 ?>
 <div id="sub">
     <ul>
-        <li><a href="/?page=facturen">Toon facturen</a></li>
-        <li><a href="/?page=nieuwfactuur" class="active">Maak nieuw factuur</a></li>
+        <li><a href="facturen/">Toon facturen</a></li>
+        <li><a href="nieuwefactuur/" class="active">Maak nieuw factuur</a></li>
     </ul>
 </div>
 </div>

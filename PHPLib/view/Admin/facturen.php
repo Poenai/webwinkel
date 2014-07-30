@@ -1,8 +1,8 @@
 <div id="sub">
 
     <ul>
-        <li><a href="../customer/view-customers.php" class="active">Toon facturen</a></li>
-        <li><a href="../customer/add-customer.php">Nieuwe factuur</a></li>
+        <li><a href="facturen/" class="active">Toon facturen</a></li>
+        <li><a href="nieuwefactuur/">Nieuwe factuur</a></li>
     </ul>
 </div>
 </div>
