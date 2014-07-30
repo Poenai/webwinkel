@@ -3,4 +3,6 @@
 ##jetbrains
 
 /.idea
-xml/UpdatedProducten.xml
+#alle xml bestanden bevaten data
+/xml
+/tmp

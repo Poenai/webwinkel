@@ -37,6 +37,28 @@ class AdminController extends Controller {
 
     public function savefactuur()
     {
+        //deze pagina moet benaderd worden via een POST
+        if(isset($_POST['invoice_date']))
+        {
+            try
+            {
+                $f = new Factuur(Contacten::GetContactById($_POST['customer_id']), $_POST['invoice_date'], $_POST['invoice_number']);
+                for($i = 0; $i<count($_POST['item']);$i++)
+                {
+                    $f->AddProduct(Producten::GetProductByID($_POST['item'][$i]), $_POST['qty'][$i]);
+                }
 
+                $f->SaveAsXML();
+                $this->SetVar('sucses', true);
+            }
+            catch(Exception $e)
+            {
+                $this->SetVar('sucses', False);
+            }
+        }
+        else
+        {
+            $this->SetVar('sucses', false);
+        }
     }
 } 
