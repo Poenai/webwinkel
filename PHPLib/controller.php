@@ -15,14 +15,33 @@ class Controller {
     private $_view;
 
 
-    public function __construct($view)
+    /**
+     * @param $default
+     */
+    public function __construct($default)
     {
+        if(isset($_GET['page']))
+        {
+            $view = chop($_GET['q'], '/');
+        }else if(isset($_GET['q']))
+        {
+            $_GET['page'] = chop($_GET['q'], '/');
+            $view = chop($_GET['q'], '/');
+        }
+        else
+        {
+            $view = $default;
+        }
+
+
         if(method_exists($this, $view))
         {
             $this->_view = new View(str_replace("Controller", "", get_class($this)), $view);
 
 
-            $this->{$view}();
+            //$this->{$view}();
+
+            call_user_func_array(array($this, $view), array());
 
             $this->_view->RenderPage();
         }
