@@ -21,6 +21,9 @@ class View {
      */
     private $_controller;
 
+    public $level;
+
+
     public function __construct($controller, $view)
     {
         $this->_controller = $controller;

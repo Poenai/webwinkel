@@ -20,28 +20,39 @@ class Controller {
      */
     public function __construct($default)
     {
+        $urlParts = array();
         if(isset($_GET['page']))
         {
-            $view = chop($_GET['q'], '/');
-        }else if(isset($_GET['q']))
-        {
-            $_GET['page'] = chop($_GET['q'], '/');
-            $view = chop($_GET['q'], '/');
-        }
-        else
-        {
-            $view = $default;
-        }
+            $_GET['q'] = $_GET['page'];
 
+        }if(isset($_GET['q']))
+        {
+            // split de string eerst op bij een een '/' en verwijder daarna met array_filter alle lege waarde eruit
+            $urlParts =  array_filter(explode('/', $_GET['q']));
+
+            //eerste item in de array is de methode de rest zijn parameters voor de methode daarom wordt de eerste verwijderd zodat de rest kan worden gebruikt als parameters
+            $view = $_GET['page'] = $urlParts[0];
+            unset($urlParts[0]);
+
+            //bepaal level voor de view
+            $level = 0;
+            for($i = 0; $i < strlen($_GET['q']);$i++)
+            {
+                if($_GET['q'][$i] == '/')
+                    $level++;
+            }
+        }
+        else{
+            $view = $default;
+            $level = 0;
+        }
 
         if(method_exists($this, $view))
         {
             $this->_view = new View(str_replace("Controller", "", get_class($this)), $view);
+            $this->_view->level = $level;
 
-
-            //$this->{$view}();
-
-            call_user_func_array(array($this, $view), array());
+            call_user_func_array(array($this, $view), $urlParts);
 
             $this->_view->RenderPage();
         }

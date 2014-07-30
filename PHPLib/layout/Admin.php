@@ -1,13 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <?php if(isset($_GET['q']) && substr($_GET['q'], -1) == '/')
-    {
-        //zorg dat er een goede base url wordt meegegeven
-        ?>
-        <base href="../" />
     <?php
-    }
+        print "<base href=\"".str_repeat("../", $this->level)."\"/>";
     ?>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

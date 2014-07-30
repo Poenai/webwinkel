@@ -61,4 +61,12 @@ class AdminController extends Controller {
             $this->SetVar('sucses', false);
         }
     }
+
+    /**
+     * @param $id int
+     */
+    public function editfactuur($id = 0)
+    {
+        print $id;
+    }
 } 
