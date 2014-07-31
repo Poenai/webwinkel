@@ -29,7 +29,8 @@
         arr[<?=$index?>][0] = '<?=$product->id?>'; //productcode
         arr[<?=$index?>][1] = '<?=$product->name?>';
         arr[<?=$index?>][2] = '<?=$product->description?>';
-        arr[<?=$index?>][3] = '<?=$product->price?>';
+        //prijs is exclusief BTW
+        arr[<?=$index?>][3] = '<?=($product->price * (100 + $product->BTWpercentage)) / 100?>';
         arr[<?=$index?>][4] = '<?=$product->price * $product->BTWpercentage / 100?>';
         arr[<?=$index?>][5] = '';
     <?php
@@ -160,7 +161,7 @@
                             </tr>
                             <tr>
                                 <td>Klant ophalen</td>
-                                <td><select name="customer_id" id="customer_id" class="drop-down">
+                                <td><select name="customer_id" id="customer_id" class="drop-down" >
                                         <option value="select" selected="selected">--select--</option>
                                         <?php
                                         /**
@@ -168,6 +169,7 @@
                                          */
                                         foreach($klanten as $klant)
                                         {
+                                            //houd de user die op de factuur selected
                                             ?>
                                             <option value="<?=$klant->id?>"><?=$klant->naam?></option>
                                             <?php
