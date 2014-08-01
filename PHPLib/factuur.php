@@ -128,7 +128,7 @@ class Factuur
         //regelt de factuur datum
         if(is_null($date)){
             $this->_factuurDatum = time();
-        }elseif(is_int($date)){
+        }if(is_numeric($date)){
             $this->_factuurDatum = $date;
         }else{
             $this->_factuurDatum = strtotime($date);
@@ -170,7 +170,7 @@ class Factuur
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function SaveAsXML()
     {
@@ -178,6 +178,8 @@ class Factuur
         $fXML->addChild('id', $this->_id);
         $fXML->addChild('contact', $this->GetContact()->id);
         $fXML->addChild('factuurdatum', $this->_factuurDatum );
+        $fXML->addChild('betalingswijze', $this->_betalingswijze);
+        $fXML->addChild('betaalstatus', $this->_betaalstatus);
         $regelsXML = $fXML->addChild('regels');
         foreach($this->GetAllFactuurRegels() as $regel )
         {
@@ -201,15 +203,15 @@ class Factuur
             $xml = simplexml_load_file(dirname(__FILE__)."/../xml/faceturen/factuur".$identifier.".xml");
 
             //mmaak een nieuw factuur object aan.
-            $f = new Factuur(Contacten::GetContactById($xml->contact), $xml->factuurdatum, $xml->id);
+            $f = new Factuur(Contacten::GetContactById($xml->contact), $xml->factuurdatum."", $xml->id);
+            $f->_betalingswijze = $xml->betalingswijze;
+            $f->_betaalstatus = $xml->betaalstatus;
             foreach($xml->regels->regel as $regel)
             {
                 $f->AddProduct(Producten::GetProductByID($regel->id), $regel->aantal);
             }
-
             return $f;
         }
-
     }
 
     /**

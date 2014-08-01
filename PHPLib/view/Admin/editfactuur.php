@@ -25,14 +25,14 @@
     foreach($producten as $index => $product)
     {
         ?>
-        arr[<?=$index?>] = new Array();
-        arr[<?=$index?>][0] = '<?=$product->id?>'; //productcode
-        arr[<?=$index?>][1] = '<?=$product->name?>';
-        arr[<?=$index?>][2] = '<?=$product->description?>';
-        //prijs is exclusief BTW
-        arr[<?=$index?>][3] = '<?=($product->price * (100 + $product->BTWpercentage)) / 100?>';
-        arr[<?=$index?>][4] = '<?=$product->price * $product->BTWpercentage / 100?>';
-        arr[<?=$index?>][5] = '';
+    arr[<?=$index?>] = new Array();
+    arr[<?=$index?>][0] = '<?=$product->id?>'; //productcode
+    arr[<?=$index?>][1] = '<?=$product->name?>';
+    arr[<?=$index?>][2] = '<?=$product->description?>';
+    //prijs is exclusief BTW
+    arr[<?=$index?>][3] = '<?=($product->price * (100 + $product->BTWpercentage)) / 100?>';
+    arr[<?=$index?>][4] = '<?=$product->price * $product->BTWpercentage / 100?>';
+    arr[<?=$index?>][5] = '';
     <?php
         $itemcodes[] = $product->id;
     }
@@ -149,8 +149,16 @@
                             <tr>
                                 <td>Factuurdatum</td>
                                 <td><input name="invoice_date" style="width:100px;margin-bottom:0px" type="text" class="textbox date"
-                                           id="invoice_date"/></td>
+                                           id="invoice_date" /></td>
                             </tr>
+                            <script>
+                                $(document).ready(function(){
+                                    //stel de juiste tijd in van de factuur
+                                    //vage bug die maand +1 doet
+                                    //mischien heeft het iets te maken dat ze een array gebruiken waarvan het een element een index van 0 heeft
+                                    $( "#invoice_date" ).datepicker("setDate", new Date(<?= date("Y,n-1,d" , $factuur->getFactuurDatum()) ?>) );
+                                });
+                            </script>
                         </table>
                     </div>
 
@@ -161,18 +169,19 @@
                             </tr>
                             <tr>
                                 <td>Klant ophalen</td>
-                                <td><select name="customer_id" id="customer_id" class="drop-down" >
-                                        <option value="select" selected="selected">--select--</option>
+                                <td><select name="customer_id" id="customer_id" class="drop-down">
+                                        <option value="select" >--select--</option>
                                         <?php
                                         /**
                                          * @var $klanten Contact[]
+                                         * @var $klantId int
                                          */
                                         foreach($klanten as $klant)
                                         {
                                             //houd de user die op de factuur selected
                                             ?>
-                                            <option value="<?=$klant->id?>"><?=$klant->naam?></option>
-                                            <?php
+                                            <option <?php if($klantId == $klant->id) {print 'selected="selected" ';} ;?>value="<?=$klant->id?>"><?=$klant->naam?></option>
+                                        <?php
                                         }
                                         ?>
 
@@ -192,7 +201,7 @@
                             <tr>
                                 <td>Betalingswijze</td>
                                 <td><select class="drop-down" name="payment_method" style="width:150px">
-
+                                        <option><?=$factuur->getBetalingswijze()?></option>
                                         <option> Cash</option>
                                         <option> Overmaking</option>
                                         <option> iDeal</option>
@@ -223,29 +232,37 @@
                     </tr>
                     </thead>
 
+                    <?php
+                    foreach($factuur->GetAllFactuurRegels() as $regel)
+                    {
+                        ?>
+                        <tr class="detail" id="item_row_1">
+                            <td><input value="<?=$regel->GetId()?>" name="item[]"  type="text"
+                                       style="border-width:0px;overflow:hidden;width:95%"/></td>
+                            <td><input name="item_name[]" value="<?=$regel->GetName()?>"  type="text" style="border-width:0px;overflow:hidden;width:95%"/></td>
+                            <td>
+                                <div class="number" style="text-align: right;padding-right:5px "><?=$regel->GetProduct()->price?></div>
+                            </td>
+                            <td><input name="qty[]"" value="<?=$regel->GetAantal()?>" type="text"
+                                style="border-width:0px;overflow:hidden;width:93%;padding-right:5px"/></td>
+                            <td>
+                                <div class="number" style="text-align: right;padding-right:5px "><?=($regel->GetBedragIncl()/(100 + $regel->GetBTW())) *  $regel->GetBTW()?></div>
+                            </td>
 
-                    <tr class="detail" id="item_row_1">
-                        <td><input value="Type item code here" name="item[]"  type="text"
-                                   style="border-width:0px;overflow:hidden;width:95%"/></td>
-                        <td><input name="item_name[]"  type="text" style="border-width:0px;overflow:hidden;width:95%"/></td>
-                        <td>
-                            <div class="number" style="text-align: right;padding-right:5px "></div>
-                        </td>
-                        <td><input name="qty[]"" value="1" type="text"
-                            style="border-width:0px;overflow:hidden;width:93%;padding-right:5px"/></td>
-                        <td>
-                            <div class="number" style="text-align: right;padding-right:5px "></div>
-                        </td>
+                            <td class="borbottomlight borleftlight">
+                                <div style="text-align: right;padding-right:5px " class="number"><?=$regel->GetBedragIncl()?></div>
+                            </td>
 
-                        <td class="borbottomlight borleftlight">
-                            <div style="text-align: right;padding-right:5px " class="number"></div>
-                        </td>
+                            <td style="vertical-align:middle;" class="borbottomlight borleftlight"><a name="remove[1]" id="remove_1"
+                                                                                                      href="javascript:void(0)"
+                                                                                                      class="deleterecord"><i
+                                        class="icon-trash"></i></a></td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
 
-                        <td style="vertical-align:middle;" class="borbottomlight borleftlight"><a name="remove[1]" id="remove_1"
-                                                                                                  href="javascript:void(0)"
-                                                                                                  class="deleterecord"><i
-                                    class="icon-trash"></i></a></td>
-                    </tr>
+
 
 
                 </table>

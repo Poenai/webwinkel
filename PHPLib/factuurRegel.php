@@ -101,7 +101,7 @@ class FactuurRegel {
      */
     public function GetBTW()
     {
-        return $this->_product->BTW;
+        return $this->_product->BTWpercentage;
     }
 
     /**
