@@ -20,8 +20,13 @@ class Contact {
     /**
      * @param SimpleXMLElement $rawContact
      */
-    public function __construct($rawContact)
+    public function __construct($rawContact = null)
     {
+        //Is niet verplicht om zo te doen je kan alle properties ook zelf zetten voor als je het uit de applicatie aanspreekt
+        if(is_null($rawContact))
+            return;
+
+
         foreach($rawContact as $pname => $pvalue)
         {
             if(property_exists('Contact', $pname))
@@ -43,4 +48,15 @@ class Contact {
     {
         //TODO: kijken of alle gegevens van het goede type zijn
     }
+
+    public function Save()
+    {
+
+    }
+
+    public function Delete()
+    {
+
+    }
+
 } 
