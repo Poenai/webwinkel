@@ -106,6 +106,29 @@ class Producten {
         self::$_xml->saveXML(self::$_fileName);
     }
 
+    /**
+     * @param Product $product
+     */
+    public static function DeleteProduct($product)
+    {
+        foreach(self::$_xml as $xproduct)
+        {
+            if($xproduct->id == $product->id)
+            {
+                var_dump($xproduct);
+                unset($xproduct[0]);
+                unset($product);
+
+
+                var_dump(self::$_xml );
+
+                self::$_xml->saveXML(self::$_fileName);
+
+                break;
+            }
+        }
+    }
+
 }
 
 //zorg dat er een aantal dingen zijn gebeurd in de static class voordat er voor de rest dingen mee gedaan worden

@@ -66,6 +66,6 @@ class Product {
 
     public function Delete()
     {
-
+        Producten::DeleteProduct($this);
     }
-} 
+}
