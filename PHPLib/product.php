@@ -54,4 +54,18 @@ class Product {
             }
         }
     }
+
+    //wat logica voor het opslaan verwijderen en updaten van producten
+    /**
+     * @description is voor het opslaan van nieuwe producten en als ze al bestaan worden ze geupdated
+     */
+    public function Save()
+    {
+        Producten::SaveProduct($this);
+    }
+
+    public function Delete()
+    {
+
+    }
 } 
