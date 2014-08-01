@@ -15,6 +15,21 @@ class AdminController extends Controller {
 
     public function facturen()
     {
+        //acties die direct uit het formulier worden gedaan
+        if(isset($_POST['act']))
+        {
+            if($_POST['act'] == 'delete')
+            {
+                foreach($_POST['chk'] as $id)
+                {
+                    $factuur = Factuur::GetFactuurFromXML($id);
+                    if(!is_null($factuur))
+                    {
+                        $factuur->Delete();
+                    }
+                }
+            }
+        }
         $this->SetVar("facturen", Factuur::GetAllFactuurs());
     }
 
