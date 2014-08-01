@@ -47,7 +47,12 @@ class Controller {
             $level = 0;
         }
 
-        if(method_exists($this, $view))
+        if($view == "action")
+        {
+            $action = $urlParts[1];
+            unset($urlParts[1]);
+            $this->RequistAsAction($action, $urlParts);
+        }elseif(method_exists($this, $view))
         {
             $this->_view = new View(str_replace("Controller", "", get_class($this)), $view);
             $this->_view->level = $level;
@@ -60,6 +65,54 @@ class Controller {
         {
             http_response_code(404);
         }
+    }
+
+    /**
+     * @var bool
+     * @description standaard is de output van een verzoek maar desgewenst kan het worden omgezet naar xml dan worden de headers veranderd
+     */
+    private $_isJson = true;
+
+    /**
+     * @param boolean $isJson
+     */
+    public function setIsJson($isJson)
+    {
+        $this->_isJson = $isJson;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsJson()
+    {
+        return $this->_isJson;
+    }
+
+    /**
+     * @description Deze methode wordt gebruikt voor http verzoeken die normaal gesproken niet door mensen direct wordt gedaan om te kunnen bekijken maar wordt
+     * meestal gebruikt door scripts om data te versturen en ontvangen
+     * ze gaan in de urll altijd vooraf met action/methodenaam.
+     * de methoden moet action_methode hete
+     */
+    private function RequistAsAction($action, $parameters)
+    {
+        try
+        {
+            $result = call_user_func_array(array($this, "action_".$action), $parameters);
+        }
+        catch(Exception $e)
+        {
+            $result = json_encode(array("error" => true, "message"=>$e->getMessage()));
+            $this->setIsJson(true);
+        }
+
+
+        if($this->_isJson)
+        {
+            header('Content-Type: application/json');
+        }
+        echo $result;
     }
 
     /**
