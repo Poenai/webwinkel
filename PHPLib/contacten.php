@@ -21,12 +21,18 @@ class Contacten {
      */
     static private $_contacten;
 
+    /**
+     * @var SimpleXMLElement
+     */
+    static private $_xml;
+
 
     public static function Initialize()
     {
         //zorgt ervoor als de require_once uit andere mappen komt dat het path altijd juist blijft
         self::$_file = dirname(__FILE__)."/../xml/contacts.xml";
-        foreach(simplexml_load_file(self::$_file)->contact as $contact)
+        self::$_xml = simplexml_load_file(self::$_file);
+        foreach(self::$_xml->contact as $contact)
         {
             self::$_contacten[] = new Contact($contact);
         }
@@ -94,6 +100,61 @@ class Contacten {
             }
         }
         return null;
+    }
+
+    /**
+     * @param $contact Contact
+     */
+    public static function SaveContact($contact)
+    {
+        $xmlC = null;
+
+        foreach(self::$_xml->contact as $xContact)
+        {
+            if($xContact->id == $contact->id)
+            {
+                $xmlC = $xContact;
+
+                break;
+            }
+        }
+
+        //contact bestaat nog niet
+        if(is_null($xmlC))
+        {
+            self::$_contacten[] = $contact;
+            $xmlC = self::$_xml->addChild("product");
+        }
+
+        //ga de contact updaten
+        foreach($contact as $index => $cProp)
+        {
+            $xmlC->{$index} = $cProp;
+        }
+
+        //sla de xml weer op.
+        self::$_xml->saveXML(self::$_file);
+
+
+    }
+
+    /**
+     * @param $contact Contact
+     */
+    public static function DeleteContact($contact)
+    {
+        //zoek de goede contactpersoon op en verwijder deze.
+        foreach(self::$_xml->contact as $xContact)
+        {
+            if($xContact->id == $contact->id)
+            {
+                unset($contact);
+                unset($xContact[0]);
+
+                self::$_xml->saveXML(self::$_file);
+                break;
+            }
+        }
     }
 
 }

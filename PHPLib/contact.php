@@ -51,12 +51,12 @@ class Contact {
 
     public function Save()
     {
-
+        Contacten::SaveContact($this);
     }
 
     public function Delete()
     {
-
+        Contacten::DeleteContact($this);
     }
 
 } 
