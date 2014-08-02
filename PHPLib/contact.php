@@ -44,9 +44,31 @@ class Contact {
         return json_encode($this);
     }
 
+    /**
+     * @return boolean
+     */
     public function IsValid()
     {
-        //TODO: kijken of alle gegevens van het goede type zijn
+        return $this->_elfProef() && filter_var($this->email, FILTER_VALIDATE_EMAIL);
+    }
+
+    /**
+     * @return bool
+     */
+    private function _elfProef()
+    {
+        $bsn = $this->BSN;
+        $value = 0;
+        if(strlen($bsn) == 9)
+        {
+            for($i = 0;$i<8;$i++)
+            {
+                $value += $bsn[$i] * (9-$i);
+            }
+            //laatste getal moet *-1
+            $value += $bsn[8] * -1;
+        }
+        return $value%11==0;
     }
 
     public function Save()
