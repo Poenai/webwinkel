@@ -241,6 +241,18 @@ class Factuur
         return $som;
     }
 
+    /**
+     * @warning is onomkeerbaar
+     */
+    public function Delete()
+    {
+        if(file_exists(dirname(__FILE__)."/../xml/faceturen/factuur".$this->_id.".xml"))
+        {
+            unlink(dirname(__FILE__)."/../xml/faceturen/factuur".$this->_id.".xml");
+        }
+        unset($this);
+    }
+
 
     /**
      * @param Product $product
