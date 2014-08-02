@@ -35,8 +35,11 @@ class Product {
     /**
      * @param SimpleXMLElement $Product
      */
-    public function __construct($Product)
+    public function __construct($Product = null)
     {
+        if(is_null($Product))
+            return;
+
         if(property_exists($Product, 'onderdelen'))
         {
             foreach($Product->onderdelen->onderdeel as $var => $val)
@@ -54,4 +57,18 @@ class Product {
             }
         }
     }
-} 
+
+    //wat logica voor het opslaan verwijderen en updaten van producten
+    /**
+     * @description is voor het opslaan van nieuwe producten en als ze al bestaan worden ze geupdated
+     */
+    public function Save()
+    {
+        Producten::SaveProduct($this);
+    }
+
+    public function Delete()
+    {
+        Producten::DeleteProduct($this);
+    }
+}
