@@ -109,21 +109,8 @@ class Factuur
     public function __construct($naw = null, $date = null ,$id = null)
     {
         $this->_naw = $naw;
+        $this->_id = $id;
 
-        if(is_null($id))
-        {
-            /**
-             * @var $oldId int
-             */
-            $oldId = file_get_contents(dirname(__FILE__)."/../tmp/FactuurId.txt");
-            $oldId +=1;
-            fwrite(fopen(dirname(__FILE__)."/../tmp/FactuurId.txt", 'w'), $oldId);
-            $this->_id = $oldId;
-        }
-        else
-        {
-            $this->_id = $id;
-        }
 
         //regelt de factuur datum
         if(is_null($date)){
@@ -132,6 +119,20 @@ class Factuur
             $this->_factuurDatum = $date;
         }else{
             $this->_factuurDatum = strtotime($date);
+        }
+    }
+
+    private function SetId()
+    {
+        if(!is_numeric($this->_id))
+        {
+            /**
+             * @var $oldId int
+             */
+            $oldId = file_get_contents(dirname(__FILE__)."/../tmp/FactuurId.txt");
+            $oldId +=1;
+            fwrite(fopen(dirname(__FILE__)."/../tmp/FactuurId.txt", 'w'), $oldId);
+            $this->_id = $oldId;
         }
     }
 
@@ -174,6 +175,9 @@ class Factuur
      */
     public function SaveAsXML()
     {
+        //zorg dat er een id aanwezig is
+        $this->SetId();
+
         $fXML = new SimpleXMLElement('<factuur/>');
         $fXML->addChild('id', $this->_id);
         $fXML->addChild('contact', $this->GetContact()->id);
