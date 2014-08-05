@@ -1,9 +1,23 @@
 <div id="sub">
 
     <ul>
+    <?php
+    if(self::_rewrite)
+    {
+        ?>
         <li><a href="facturen/" class="active">Toon facturen</a></li>
         <li><a href="nieuwefactuur/">Nieuwe factuur</a></li>
+    <?php
+    } else
+    {
+        ?>
+            <li><a href="?page=facturen/" class="active">Toon facturen</a></li>
+            <li><a href="?page=nieuwefactuur/">Nieuwe factuur</a></li>
+        <?php
+    }
+    ?>
     </ul>
+
 </div>
 </div>
 
@@ -134,7 +148,7 @@
 
                                          <hr>
                                          "
-                                   href="editfactuur/<?=$factuur->GetId()?>/"><?=$factuur->GetId()?></a>
+                                   href="<?php if(self::_rewrite == false) print "?page="; ?>editfactuur/<?=$factuur->GetId()?>/"><?=$factuur->GetId()?></a>
                             </td>
                             <?php
                             //creere een snelle link met alle id's en hoeveel het er zijn
@@ -154,7 +168,7 @@
                             <td style="text-align:right">&euro; <?= $factuur->GetTotaalBedrag()?></td>
                             <td><?= ($factuur->getBetaalstatus() === true ? "ja" : "nee")?></td>
                             <td> &nbsp;&nbsp;&nbsp;
-                                <a title="Edit Invoice" href="editfactuur/<?=$factuur->GetId()?>/">edit</a>
+                                <a title="Edit Invoice" href="<?php if(self::_rewrite == false) print "?page="; ?>editfactuur/<?=$factuur->GetId()?>/">edit</a>
                             </td>
 
 
