@@ -2,7 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <?php
+    if(self::_rewrite)
+    {
         print "<base href=\"".str_repeat("../", $this->level)."\"/>";
+    }
+
     ?>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -90,11 +94,25 @@
     <div id="nav">
 
         <div class="nav">
+            <?php
+            if(self::_rewrite)
+            {
+                ?>
             <ul>
                 <li><a   <?php if(!isset($_GET['page']) || $_GET['page'] == "facturen" || $_GET['page'] == "nieuwefactuur"){?>class="active"<?php } ?> href="facturen/">Facturen</a></li>
                 <li><a   <?php if(isset($_GET['page']) && $_GET['page'] == "producten"){?>class="active"<?php } ?> href="producten/">Producten</a></li>
                 <li><a   <?php if(isset($_GET['page']) && $_GET['page'] == "leerlingen"){?>class="active"<?php } ?> href="leerlingen/">Leerlingen</a></li>
             </ul>
+            <?php }
+            if(!self::_rewrite){?>
+            <ul>
+                <li><a   <?php if(!isset($_GET['page']) || $_GET['page'] == "facturen" || $_GET['page'] == "nieuwefactuur"){?>class="active"<?php } ?> href="?page=facturen">Facturen</a></li>
+                <li><a   <?php if(isset($_GET['page']) && $_GET['page'] == "producten"){?>class="active"<?php } ?> href="?page=producten">Producten</a></li>
+                <li><a   <?php if(isset($_GET['page']) && $_GET['page'] == "leerlingen"){?>class="active"<?php } ?> href="?page=leerlingen">Leerlingen</a></li>
+            </ul>
+            <?php
+            }
+            ?>
 
         </div>
     </div>

@@ -6,8 +6,8 @@
 ?>
 <div id="sub">
     <ul>
-        <li><a href="facturen/">Toon facturen</a></li>
-        <li><a href="nieuwefactuur/" class="active">Maak nieuw factuur</a></li>
+        <li><a href="<?php if(!self::_rewrite) print "?page="; ?>facturen/">Toon facturen</a></li>
+        <li><a href="<?php if(!self::_rewrite) print "?page="; ?>nieuwefactuur/" class="active">Maak nieuw factuur</a></li>
     </ul>
 </div>
 </div>
@@ -126,7 +126,7 @@
         <div id="invoicexc">
 
 
-            <form action="savefactuur/" method="post" id="thisform">
+            <form action="<?php if(!self::_rewrite) print "?page="; ?>savefactuur/" method="post" id="thisform">
 
 
                 <input id='rowcount' name='rowcount' type='hidden' value='1'>

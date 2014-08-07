@@ -21,6 +21,8 @@ class View {
      */
     private $_controller;
 
+    const _rewrite = false;
+
     public $level;
 
 

@@ -1,7 +1,7 @@
 <div id="sub">
 
     <ul>
-        <li><a href="producten/" class="active">Toon producten</a></li>
+        <li><a href="<?php if(!self::_rewrite) print "?page="; ?>producten/" class="active">Toon producten</a></li>
         <li><a href="#">Nieuwe product</a></li>
     </ul>
 </div>
