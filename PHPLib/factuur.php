@@ -10,7 +10,7 @@ require_once dirname(__FILE__)."/contacten.php";
 require_once dirname(__FILE__)."/producten.php";
 require_once dirname(__FILE__)."/onderdeel.php";
 require_once dirname(__FILE__)."/factuurRegel.php";
-require_once dirname(__FILE__)."/MollieApi/Mollie/API/Autoloader.php";
+require_once dirname(__FILE__) . "/Mollie/API/Autoloader.php";
 
 /**
  * Class Factuur
