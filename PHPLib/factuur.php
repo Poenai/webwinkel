@@ -187,6 +187,10 @@ class Factuur
 
         $fXML = new SimpleXMLElement('<factuur/>');
         $fXML->addChild('id', $this->_id);
+        if(!is_null($this->_payment))
+        {
+            $fXML->addChild('Mollie', $this->_payment->id);
+        }
         $fXML->addChild('contact', $this->GetContact()->id);
         $fXML->addChild('factuurdatum', $this->_factuurDatum );
         $fXML->addChild('betalingswijze', $this->_betalingswijze);
@@ -217,6 +221,12 @@ class Factuur
             $f = new Factuur(Contacten::GetContactById($xml->contact), $xml->factuurdatum."", $xml->id);
             $f->_betalingswijze = $xml->betalingswijze;
             $f->_betaalstatus = $xml->betaalstatus;
+            if( isset($xml->Mollie))
+            {
+                $mollie = new Mollie_API_Client;
+                $mollie->setApiKey("test_hMBT2hriUZytWWD8SrUXo78qt84xgq");
+                $f->_payment = $mollie->payments->get($xml->Mollie);
+            }
             foreach($xml->regels->regel as $regel)
             {
                 $f->AddProduct(Producten::GetProductByID($regel->id), $regel->aantal);

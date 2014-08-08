@@ -41,8 +41,10 @@ class FactuurController extends Controller {
         }
 
 
-        //$f->SaveAsXML();
+        $url = $f->SetBetaalObject();
 
-        return json_encode(array('url'=>$f->SetBetaalObject()));
+        $f->SaveAsXML();
+
+        return json_encode(array('url'=> $url));
     }
 } 
