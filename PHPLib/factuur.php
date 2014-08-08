@@ -10,6 +10,7 @@ require_once dirname(__FILE__)."/contacten.php";
 require_once dirname(__FILE__)."/producten.php";
 require_once dirname(__FILE__)."/onderdeel.php";
 require_once dirname(__FILE__)."/factuurRegel.php";
+require_once dirname(__FILE__)."/MollieApi/Mollie/API/Autoloader.php";
 
 /**
  * Class Factuur
@@ -17,6 +18,12 @@ require_once dirname(__FILE__)."/factuurRegel.php";
  */
 class Factuur
 {
+
+    /**
+     * @var Mollie_API_Object_Payment
+     */
+    private $_payment;
+
     /**
      * @var boolean
      */
@@ -257,6 +264,21 @@ class Factuur
         unset($this);
     }
 
+    public function SetBetaalObject()
+    {
+        $this->SetId();
+        $mollie = new Mollie_API_Client;
+        $mollie->setApiKey("test_hMBT2hriUZytWWD8SrUXo78qt84xgq");
+
+        $this->_payment = $mollie->payments->create(array(
+            "amount"      => $this->GetTotaalBedrag(),
+            "description" => "Betaling Driveperfect #{$this->_id}",
+            "redirectUrl" => "http://driveperfect.nl",
+        ));
+
+        return $this->_payment->getPaymentUrl();
+    }
+
 
     /**
      * @param Product $product
@@ -267,10 +289,12 @@ class Factuur
     {
         if($product->category == "pakket")
         {
-            foreach($product->onderdelen as $onderdeel)
+            /*
+             * ze worden al uitgestald toegestuurd
+             * foreach($product->onderdelen as $onderdeel)
             {
                 $this->_addProductRecursivly(Producten::GetProductByID($onderdeel->id), $onderdeel->aantal * $aantal);
-            }
+            }*/
         }
         else
         {

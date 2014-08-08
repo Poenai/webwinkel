@@ -99,7 +99,7 @@ class Contacten {
                 return $contact;
             }
         }
-        return null;
+        throw new Exception("Persoon {$id} niet gevonden");
     }
 
     /**

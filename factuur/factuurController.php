@@ -27,7 +27,22 @@ class FactuurController extends Controller {
         }
         else
         {
-            throw exception("Geen BSN opgegeven");
+            throw new exception("Geen BSN opgegeven");
         }
+    }
+
+    public function action_betaal()
+    {
+
+        $f = new Factuur(Contacten::GetContactById($_POST['person']));
+        foreach($_POST["Products"] as $id => $aantal)
+        {
+            $f->AddProduct(Producten::GetProductByID(str_replace("ID", "", $id)), $aantal);
+        }
+
+
+        //$f->SaveAsXML();
+
+        return json_encode(array('url'=>$f->SetBetaalObject()));
     }
 } 
