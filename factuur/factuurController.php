@@ -34,7 +34,7 @@ class FactuurController extends Controller {
     public function action_betaal()
     {
 
-        $f = new Factuur(Contacten::GetContactById($_POST['person']));
+        $f = new Factuur(Contacten::GetPersonByBSN($_POST['BSN']));
         foreach($_POST["Products"] as $id => $aantal)
         {
             $f->AddProduct(Producten::GetProductByID(str_replace("ID", "", $id)), $aantal);

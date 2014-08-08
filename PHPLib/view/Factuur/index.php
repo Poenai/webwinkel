@@ -491,7 +491,11 @@ $(document).ready(function(){
 var BetaalActie = function()
 {
 
-    var post = {person : 3, Products : $_GET};
+    var post =
+        {
+            BSN : $('#BSN').val(),
+            Products : $_GET
+        };
 
     $.ajax(
         {
@@ -502,7 +506,10 @@ var BetaalActie = function()
         }
     )
         .done(function(data){
-            window.location.href = (data['url']);
+            if(data['url'])
+            {
+                window.location.href = (data['url']);
+            }
             console.log(data);
         });
 
