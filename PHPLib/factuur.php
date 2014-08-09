@@ -118,13 +118,12 @@ class Factuur
         $this->_naw = $naw;
         $this->_id = $id;
 
+        $this->_factuurDatum = time();
 
-        //regelt de factuur datum
-        if(is_null($date)){
-            $this->_factuurDatum = time();
-        }if(is_numeric($date)){
+
+        if(is_numeric($date)){
             $this->_factuurDatum = $date;
-        }else{
+        }else if(!empty($date)){
             $this->_factuurDatum = strtotime($date);
         }
     }
