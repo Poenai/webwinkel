@@ -510,7 +510,12 @@ var BetaalActie = function()
             {
                 window.location.href = (data['url']);
             }
-            console.log(data);
+            else//als er geen betaalink wordt meegegeven geef dan een melding
+            {
+                window.confirm("U heeft nog geen geldig BSN ingevuld");
+                //show het venster waar ze hun BSN in kunnen voeren
+                $('#dialog').dialog('open');
+            }
         });
 
 
