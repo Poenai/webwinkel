@@ -10,6 +10,7 @@ require_once dirname(__FILE__)."/contacten.php";
 require_once dirname(__FILE__)."/producten.php";
 require_once dirname(__FILE__)."/onderdeel.php";
 require_once dirname(__FILE__)."/factuurRegel.php";
+require_once dirname(__FILE__) . "/Mollie/API/Autoloader.php";
 
 /**
  * Class Factuur
@@ -17,6 +18,12 @@ require_once dirname(__FILE__)."/factuurRegel.php";
  */
 class Factuur
 {
+
+    /**
+     * @var Mollie_API_Object_Payment
+     */
+    private $_payment;
+
     /**
      * @var boolean
      */
@@ -111,13 +118,12 @@ class Factuur
         $this->_naw = $naw;
         $this->_id = $id;
 
+        $this->_factuurDatum = time();
 
-        //regelt de factuur datum
-        if(is_null($date)){
-            $this->_factuurDatum = time();
-        }if(is_numeric($date)){
+
+        if(is_numeric($date)){
             $this->_factuurDatum = $date;
-        }else{
+        }else if(!empty($date)){
             $this->_factuurDatum = strtotime($date);
         }
     }
@@ -180,6 +186,10 @@ class Factuur
 
         $fXML = new SimpleXMLElement('<factuur/>');
         $fXML->addChild('id', $this->_id);
+        if(!is_null($this->_payment))
+        {
+            $fXML->addChild('Mollie', $this->_payment->id);
+        }
         $fXML->addChild('contact', $this->GetContact()->id);
         $fXML->addChild('factuurdatum', $this->_factuurDatum );
         $fXML->addChild('betalingswijze', $this->_betalingswijze);
@@ -210,6 +220,12 @@ class Factuur
             $f = new Factuur(Contacten::GetContactById($xml->contact), $xml->factuurdatum."", $xml->id);
             $f->_betalingswijze = $xml->betalingswijze;
             $f->_betaalstatus = $xml->betaalstatus;
+            if( isset($xml->Mollie))
+            {
+                $mollie = new Mollie_API_Client;
+                $mollie->setApiKey("test_hMBT2hriUZytWWD8SrUXo78qt84xgq");
+                $f->_payment = $mollie->payments->get($xml->Mollie);
+            }
             foreach($xml->regels->regel as $regel)
             {
                 $f->AddProduct(Producten::GetProductByID($regel->id), $regel->aantal);
@@ -257,6 +273,21 @@ class Factuur
         unset($this);
     }
 
+    public function SetBetaalObject()
+    {
+        $this->SetId();
+        $mollie = new Mollie_API_Client;
+        $mollie->setApiKey("test_hMBT2hriUZytWWD8SrUXo78qt84xgq");
+
+        $this->_payment = $mollie->payments->create(array(
+            "amount"      => $this->GetTotaalBedrag(),
+            "description" => "Betaling Driveperfect #{$this->_id}",
+            "redirectUrl" => "http://driveperfect.nl",
+        ));
+
+        return $this->_payment->getPaymentUrl();
+    }
+
 
     /**
      * @param Product $product
@@ -267,10 +298,12 @@ class Factuur
     {
         if($product->category == "pakket")
         {
-            foreach($product->onderdelen as $onderdeel)
+            /*
+             * ze worden al uitgestald toegestuurd
+             * foreach($product->onderdelen as $onderdeel)
             {
                 $this->_addProductRecursivly(Producten::GetProductByID($onderdeel->id), $onderdeel->aantal * $aantal);
-            }
+            }*/
         }
         else
         {

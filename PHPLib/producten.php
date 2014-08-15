@@ -56,7 +56,7 @@ class Producten {
                     return $product;
             }
         }
-        throw new Exception("product not found");
+        throw new Exception("product {$ID} not found");
     }
 
     /**
