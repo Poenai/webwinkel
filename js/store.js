@@ -29,11 +29,16 @@
 
 Store =
     {
+		"website":"http://driveperfect.poenai.nl/webwinkel",
+        "email":"driveperfect@poenai.nl",
+		"mobiel":"Mobiel : 06 44 5 22 999",
+		"KvK": "Kvk : 58374825",
+        "BTW": "BTW : NLIB203964081B01",
+		"rekening":"Rekening : NL47 INGB 0006 6207 82",
         "baseUrl":"http://driveperfect.poenai.nl",
         "title":"Kopen van rijlessen en examens",
         "storeName": "Drive Perfect by Poenai",
         "address":"Rotterdam Zuid",
-        "phone":"06 44 5 22 999",
         "footer": "Copyright 2014 Drive Perfect",
         "currency": "EUR",
         "currencyCode": "EUR",
@@ -86,18 +91,6 @@ Links =
             "label": "Losse producten",
             "highlight": "Voor maatwerk",
             "type": "mainmenu"
-        },
-        {
-            "link": "http://www.facebook.com/driveperfect",
-            "label": "Volg via Facebook",
-            "type": "social",
-            "image": "facebook.png"
-        },
-        {
-            "link": "http://www.twitter.com/driveperfect",
-            "label": "Volg via Twitter",
-            "type": "social",
-            "image": "twitter.png"
         }
     ]
 

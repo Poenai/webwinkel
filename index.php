@@ -90,8 +90,8 @@ require_once "PHPLib/producten.php";
 				<a href="product.php?product=${seoName}"><img alt="" src="img/products/${image}"></a>
 				<p><h3>${formatedPrice}</h3></p>
 				<div class="bottom">
-					<a class="view" href="product.php?product=${seoName}">bekijk</a> /
-					<a class="addcart addToCart" href="#" productId="${id}">toevoegen aan winkelwagen</a>
+					<a class="view" href="product.php?product=${seoName}">Meer info</a> /
+					<a class="addcart addToCart" href="#" productId="${id}">Zet in winkelwagen</a>
 				</div>
 			</div>
 		</li>   
@@ -114,12 +114,10 @@ require_once "PHPLib/producten.php";
 	<script id="footerBrandingTemplate" type="text/x-jquery-tmpl">
 				<h4>${storeName}</h4>
 				<p>
-				{{if address}}
-					${address}<br/>
-				{{/if}}
-				{{if phone}}
-					${phone}
-				{{/if}}
+				${address} <br />
+				${website} <br />
+				${email} <br />
+				${mobiel} <br />
 				</p>
 	</script>
 
@@ -205,7 +203,7 @@ require_once "PHPLib/producten.php";
 			<br/>
 			<div class="row">
 				<div class="span12">
-					<br/><h1 class="lbw">Leerlingen kochten ook..</h1><br/>
+					<br/><h1 class="lbw">Veel verkochte producten..</h1><br/>
 
 									<ul id="productList" class="thumbnails product-list"></ul>
 				</div>
@@ -225,6 +223,12 @@ require_once "PHPLib/producten.php";
 
                     <div class="span6" id="socialLinks">
 
+						<p>
+								KvK: 58374825<br />
+								BTW: NL203964081B01 <br />
+								Rekening: NL47INGB0006620782
+						</p>
+			
                     </div>				
                 </div>
 		    <div id="footer-bottom"></div>
