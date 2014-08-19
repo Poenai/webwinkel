@@ -114,6 +114,8 @@ require_once "PHPLib/producten.php";
 	<script id="footerBrandingTemplate" type="text/x-jquery-tmpl">
 				<h4>${storeName}</h4>
 				<p>
+				${street}<br />
+				${pc}<br />
 				${address} <br />
 				${website} <br />
 				${email} <br />
