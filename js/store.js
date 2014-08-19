@@ -36,7 +36,7 @@ Store =
         "BTW": "BTW : NLIB203964081B01",
 		"rekening":"Rekening : NL47 INGB 0006 6207 82",
         "baseUrl":"http://driveperfect.poenai.nl",
-        "title":"Kopen van rijlessen en examens",
+        "title":"Webshop voor rijlessen en examens",
         "storeName": "Drive Perfect by Poenai",
 		"street":"Ossenisseweg 9",
 		"pc":"3086KW",

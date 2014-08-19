@@ -39,7 +39,7 @@
 
 		//do not edit
 		var decimal ="."
-		var cookieDurationDays = 10z;//number of days in cookie
+		var cookieDurationDays = 10;//number of days in cookie
 		var useShoppingCartImage = false;
 		var checkoutAdditionalCostMessage = '';//if additional cost is applied, this line must not be null or empty
 		var checkoutAdditionalCost = 0;//required, should be 0 or more
