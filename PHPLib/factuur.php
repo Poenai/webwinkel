@@ -175,7 +175,6 @@ class Factuur
     {
         return $this->_realFactuurRegels;
     }
-
     /**
      * @return string
      */
@@ -219,12 +218,19 @@ class Factuur
             //mmaak een nieuw factuur object aan.
             $f = new Factuur(Contacten::GetContactById($xml->contact), $xml->factuurdatum."", $xml->id);
             $f->_betalingswijze = $xml->betalingswijze;
-            $f->_betaalstatus = $xml->betaalstatus;
+            $f->_betaalstatus = !empty($xml->betaalstatus);
+
             if( isset($xml->Mollie))
             {
                 $mollie = new Mollie_API_Client;
                 $mollie->setApiKey("test_hMBT2hriUZytWWD8SrUXo78qt84xgq");
                 $f->_payment = $mollie->payments->get($xml->Mollie);
+
+                //check of er niet inmiddels toch betaald is
+                if(!$f->_betaalstatus)
+                {
+                    $f->_betaalstatus = $f->_payment->isPaid();
+                }
             }
             foreach($xml->regels->regel as $regel)
             {
