@@ -323,7 +323,8 @@ document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
             });
         }
 
-        $_GET[decode(arguments[1])] = decode(arguments[2]);
+        //pakket wordt niet aan lijst toegevoegd.
+        //$_GET[decode(arguments[1])] = decode(arguments[2]);
     }
     else
         $_GET[decode(arguments[1])] = decode(arguments[2]);

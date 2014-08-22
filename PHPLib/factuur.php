@@ -298,12 +298,12 @@ class Factuur
     {
         if($product->category == "pakket")
         {
-            /*
-             * ze worden al uitgestald toegestuurd
-             * foreach($product->onderdelen as $onderdeel)
+
+             //ze worden al uitgestald toegestuurd
+            foreach($product->onderdelen as $onderdeel)
             {
                 $this->_addProductRecursivly(Producten::GetProductByID($onderdeel->id), $onderdeel->aantal * $aantal);
-            }*/
+            }
         }
         else
         {
